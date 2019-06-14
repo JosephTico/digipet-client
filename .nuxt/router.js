@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 
 const _2cd0d28a = () => interopDefault(import('../pages/care.vue' /* webpackChunkName: "pages/care" */))
+const _b233d67c = () => interopDefault(import('../pages/signup.vue' /* webpackChunkName: "pages/signup" */))
 const _28bffb18 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
@@ -83,6 +84,10 @@ export function createRouter() {
       path: "/care",
       component: _2cd0d28a,
       name: "care"
+    }, {
+      path: "/signup",
+      component: _b233d67c,
+      name: "signup"
     }, {
       path: "/",
       component: _28bffb18,
