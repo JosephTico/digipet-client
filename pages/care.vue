@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card
-      title="Card Title"
+      title="A jimena le gustan debugear"
       img-src="https://cdn-images-1.medium.com/fit/c/200/200/0*_TMzlJbdYSi5goC3.jpg"
       img-alt="Image"
       img-top
@@ -14,11 +14,14 @@
         of the card's content.
       </b-card-text>
 
-      <b-button href="#" variant="primary">Go somewhere</b-button>
+      <b-button
+        href="https://americanaddictioncenters.org/marijuana-rehab/how-to-quit-smoking-weed"
+        variant="success"
+        ><fa icon="leaf" /> Hojitas</b-button
+      >
     </b-card>
 
     <b-alert show>Default Alert</b-alert>
-    <h1 class="red">Hello {{ name }}!</h1>
     <ul>
       <li v-for="user in users" :key="user.id">
         Hola {{ user.first_name }} {{ user.last_name }}

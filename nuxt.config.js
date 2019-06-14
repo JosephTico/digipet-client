@@ -16,6 +16,10 @@ export default {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
+  server: {
+    port: 3000, // default: 3000
+    host: "0.0.0.0" // default: localhost
+  },
   /*
    ** Customize the progress-bar color
    */
@@ -35,7 +39,20 @@ export default {
     // Doc: https://bootstrap-vue.js.org/docs/
     "bootstrap-vue/nuxt",
     // Doc: https://axios.nuxtjs.org/usage
-    "@nuxtjs/axios"
+    "@nuxtjs/axios",
+    [
+      "nuxt-fontawesome",
+      {
+        component: "fa",
+        imports: [
+          //import whole set
+          {
+            set: "@fortawesome/free-solid-svg-icons",
+            icons: ["fas"]
+          }
+        ]
+      }
+    ]
   ],
   /*
    ** Axios module configuration
