@@ -9,7 +9,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "now-build": "nuxt generate"
+    "now-build": "nuxt build --spa"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.9.0",

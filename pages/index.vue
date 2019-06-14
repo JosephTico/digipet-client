@@ -3,15 +3,13 @@
     <div>
       <Logo />
       <h1 class="title">
-        Ximena
+        Daniel;
       </h1>
       <h2 class="subtitle">
         Digipet client app
       </h2>
       <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green"
-          >Documentation</a
-        >
+        <n-link to="/care" no-prefetch class="button--green">Cares</n-link>
         <a
           href="https://github.com/nuxt/nuxt.js"
           target="_blank"

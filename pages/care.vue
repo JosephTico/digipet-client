@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card
-      title="A jimena le gustan debugear"
+      title="A jimena le gusta debugear"
       img-src="https://cdn-images-1.medium.com/fit/c/200/200/0*_TMzlJbdYSi5goC3.jpg"
       img-alt="Image"
       img-top
@@ -13,12 +13,6 @@
         Some quick example text to build on the card title and make up the bulk
         of the card's content.
       </b-card-text>
-
-      <b-button
-        href="https://americanaddictioncenters.org/marijuana-rehab/how-to-quit-smoking-weed"
-        variant="success"
-        ><fa icon="leaf" /> Hojitas</b-button
-      >
     </b-card>
 
     <b-alert show>Default Alert</b-alert>
@@ -32,6 +26,7 @@
 
 <script>
 export default {
+  transition: "slide-right",
   async asyncData({ $axios }) {
     var users = await $axios.$get("https://reqres.in/api/users");
     users = users["data"];
