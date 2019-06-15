@@ -77,3 +77,4 @@ date usa el formato YYYY-MM-DD
     "start_date": "(date)"
     "finish_date": "(date)"
 }
+

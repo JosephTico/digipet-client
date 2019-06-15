@@ -1,23 +1,94 @@
 <template>
-  <div class="container">
+  <div>
     <div>
-      <Logo />
-      <h1 class="title">
-        Daniel;
-      </h1>
-      <h2 class="subtitle">
-        Digipet client app
-      </h2>
-      <div class="links">
-        <n-link to="/care" no-prefetch class="button--green">Cares</n-link>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-          >GitHub</a
-        >
-      </div>
+      <b-navbar toggleable="lg" class="mb-3">
+        <b-navbar-brand href="#">
+          <img
+            src="https://placekitten.com/g/30/30"
+            class="d-inline-block align-top"
+            alt="Kitten"
+          />
+          Digipet
+        </b-navbar-brand>
+
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-button variant="primary">Iniciar sesión</b-button>
+        </b-navbar-nav>
+      </b-navbar>
     </div>
+
+    <h3 class="mb-3">Cuidado para sus mascotas, a su alcance</h3>
+
+    <b-container class="bv-example-row">
+      <b-row>
+        <b-col>
+          Nunca más se preocupe por dejar sus mascotas solas, con DigiPet, usted
+          puede pedir que una persona de confianza pasee a sus mascotas.
+        </b-col>
+        <b-col><img src="~/assets/img/doggo.png" alt="Dog"/></b-col>
+        <b-col>
+          Además contamos con servicio de hotelería para sus mascotas.
+        </b-col>
+        <b-col><img src="~/assets/img/hotel.png" alt="Dog"/></b-col>
+      </b-row>
+    </b-container>
+
+    <hr class="my-4" />
+
+    <h3 class="mb-3">Regístrese ahora</h3>
+
+    <p class="lead">
+      Regístrese con <b>DigiPet</b> y empiece a disfrutar de nuestros
+      beneficios.
+    </p>
+
+    <b-container>
+      <b-row>
+        <b-col>
+          <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+            <b-row no-gutters>
+              <b-col md="6">
+                <b-card-img
+                  src="https://picsum.photos/400/400/?image=20"
+                  class="rounded-0"
+                ></b-card-img>
+              </b-col>
+              <b-col md="6">
+                <b-card-body title="Horizontal Card">
+                  <b-card-text>
+                    This is a wider card with supporting text as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                  </b-card-text>
+                </b-card-body>
+              </b-col>
+            </b-row>
+          </b-card>
+        </b-col>
+        <b-col>
+          <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+            <b-row no-gutters>
+              <b-col md="6">
+                <b-card-img
+                  src="https://picsum.photos/400/400/?image=20"
+                  class="rounded-0"
+                ></b-card-img>
+              </b-col>
+              <b-col md="6">
+                <b-card-body title="Horizontal Card">
+                  <b-card-text>
+                    This is a wider card with supporting text as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                  </b-card-text>
+                </b-card-body>
+              </b-col>
+            </b-row>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -32,34 +103,7 @@ export default {
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.navbar {
+  border-bottom: 1px solid whitesmoke;
 }
 </style>

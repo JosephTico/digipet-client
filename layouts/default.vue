@@ -1,13 +1,25 @@
 <template>
   <div>
-    <nuxt />
+    <b-container>
+      <nuxt />
+    </b-container>
+    <!-- Footer -->
+    <footer class="page-footer font-small blue">
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">
+        © {{ new Date().getFullYear() }} Copyright:
+        <a href="https://github.com/JosephTico/digipet-client"> X-TEC</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
   </div>
 </template>
 
 <style>
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
