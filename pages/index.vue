@@ -1,22 +1,65 @@
 <template>
   <div>
-    <div>
-      <b-navbar toggleable="lg" class="mb-3">
-        <b-navbar-brand href="#">
-          <img
-            src="https://placekitten.com/g/30/30"
-            class="d-inline-block align-top"
-            alt="Kitten"
-          />
-          Digipet
-        </b-navbar-brand>
+    <b-navbar toggleable="lg" class="mb-3">
+      <b-navbar-brand href="#">
+        <img
+          src="https://placekitten.com/g/30/30"
+          class="d-inline-block align-top"
+          alt="Kitten"
+        />
+        Digipet
+      </b-navbar-brand>
 
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <b-button variant="primary">Iniciar sesión</b-button>
-        </b-navbar-nav>
-      </b-navbar>
-    </div>
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+        <b-button v-b-modal.login-modal variant="primary"
+          >Iniciar sesión</b-button
+        >
+      </b-navbar-nav>
+    </b-navbar>
+
+    <b-modal
+      id="login-modal"
+      title="Iniciar sesión"
+      centered
+      ok-title="Ingresar"
+      cancel-title="Cancelar"
+      hide-footer
+    >
+      <b-form @submit="onSubmit" @reset="onReset">
+        <b-form-group
+          id="input-group-1"
+          label="Email o usuario:"
+          label-for="input-1"
+        >
+          <b-form-input
+            id="input-1"
+            v-model="form.username"
+            type="text"
+            required
+            placeholder="Ingrese un valor"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+          id="input-group-2"
+          label="Contraseña:"
+          label-for="input-2"
+        >
+          <b-form-input
+            id="input-2"
+            v-model="form.password"
+            type="password"
+            required
+            placeholder="Ingrese su contraseña"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-button type="submit" variant="primary" style="width:100%"
+          >Ingresar</b-button
+        >
+      </b-form>
+    </b-modal>
 
     <h3 class="mb-3">Cuidado para sus mascotas, a su alcance</h3>
 
@@ -50,7 +93,7 @@
             <b-row no-gutters>
               <b-col md="6">
                 <b-card-img
-                  src="https://picsum.photos/400/400/?image=20"
+                  src="~/assets/img/owner.jpeg"
                   class="rounded-0"
                 ></b-card-img>
               </b-col>
@@ -80,8 +123,8 @@
                 <b-card-body title="Estudiantes">
                   <b-card-text>
                     ¿Ama los animales y quiere generar ingresos extra en su
-                    tiempo libre? En DigiPet usted puede cuidar mascotas en su
-                    tiempo libre y ganar dinero mientras lo hace.
+                    tiempo libre? Cuide mascotas en su tiempo libre y gane
+                    dinero mientras lo hace.
                   </b-card-text>
                   <b-button href="#" variant="primary">Registrarse</b-button>
                 </b-card-body>
@@ -95,11 +138,33 @@
 </template>
 
 <script>
-import Logo from "~/components/Logo.vue";
-
 export default {
-  components: {
-    Logo
+  data() {
+    return {
+      form: {
+        username: "",
+        password: ""
+      }
+    };
+  },
+  methods: {
+    onSubmit(evt) {
+      evt.preventDefault();
+      alert(JSON.stringify(this.form));
+    },
+    onReset(evt) {
+      evt.preventDefault();
+      // Reset our form values
+      this.form.email = "";
+      this.form.name = "";
+      this.form.food = null;
+      this.form.checked = [];
+      // Trick to reset/clear native browser form validation state
+      this.show = false;
+      this.$nextTick(() => {
+        this.show = true;
+      });
+    }
   }
 };
 </script>
@@ -107,5 +172,10 @@ export default {
 <style>
 .navbar {
   border-bottom: 1px solid whitesmoke;
+}
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>
