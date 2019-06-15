@@ -55,12 +55,13 @@
                 ></b-card-img>
               </b-col>
               <b-col md="6">
-                <b-card-body title="Horizontal Card">
+                <b-card-body title="Clientes">
                   <b-card-text>
-                    This is a wider card with supporting text as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
+                    ¿Sin tiempo y con mascotas? Aproveche los servicios de
+                    DigiPet y nosotros nos encargaremos de cuidarla de la mejor
+                    manera posible.
                   </b-card-text>
+                  <b-button href="#" variant="primary">Registrarse</b-button>
                 </b-card-body>
               </b-col>
             </b-row>
@@ -71,17 +72,18 @@
             <b-row no-gutters>
               <b-col md="6">
                 <b-card-img
-                  src="https://picsum.photos/400/400/?image=20"
+                  src="~/assets/img/student.jpeg"
                   class="rounded-0"
                 ></b-card-img>
               </b-col>
               <b-col md="6">
-                <b-card-body title="Horizontal Card">
+                <b-card-body title="Estudiantes">
                   <b-card-text>
-                    This is a wider card with supporting text as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
+                    ¿Ama los animales y quiere generar ingresos extra en su
+                    tiempo libre? En DigiPet usted puede cuidar mascotas en su
+                    tiempo libre y ganar dinero mientras lo hace.
                   </b-card-text>
+                  <b-button href="#" variant="primary">Registrarse</b-button>
                 </b-card-body>
               </b-col>
             </b-row>
