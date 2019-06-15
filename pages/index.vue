@@ -26,6 +26,10 @@
       cancel-title="Cancelar"
       hide-footer
     >
+      <b-alert v-show="errorString" show variant="danger">
+        {{ errorString }}
+      </b-alert>
+
       <b-form @submit="onSubmit" @reset="onReset">
         <b-form-group
           id="input-group-1"
@@ -54,8 +58,16 @@
             placeholder="Ingrese su contraseña"
           ></b-form-input>
         </b-form-group>
-
-        <b-button type="submit" variant="primary" style="width:100%"
+        <b-button
+          v-if="loading"
+          type="submit"
+          variant="primary"
+          style="width:100%"
+          disabled
+        >
+          <b-spinner small label="Small Spinner"></b-spinner>
+        </b-button>
+        <b-button v-else type="submit" variant="primary" style="width:100%"
           >Ingresar</b-button
         >
       </b-form>
@@ -138,19 +150,41 @@
 </template>
 
 <script>
+import _ from "lodash";
+
 export default {
   data() {
     return {
       form: {
         username: "",
         password: ""
-      }
+      },
+      loading: false,
+      errorString: ""
     };
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      alert(JSON.stringify(this.form));
+      this.loading = true;
+      this.errorString = "";
+
+      this.$axios
+        .$post("https://reqres.in/api/login/", this.form)
+        .then(response => {
+          console.log(response);
+
+          this.loading = false;
+        })
+        .catch(error => {
+          if (_.has(error.response, "data")) {
+            this.loading = false;
+            this.errorString = error.response.data.error;
+            console.log(this.$cookies.get("Holamundo"));
+            console.log(this.checkLoggedIn());
+          }
+          this.loading = false;
+        });
     },
     onReset(evt) {
       evt.preventDefault();

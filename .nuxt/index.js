@@ -13,6 +13,7 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 import nuxt_plugin_bootstrapvue_189d3db5 from 'nuxt_plugin_bootstrapvue_189d3db5' // Source: ./bootstrap-vue.js (mode: 'all')
 import nuxt_plugin_templatesplugin4f702a06_52997396 from 'nuxt_plugin_templatesplugin4f702a06_52997396' // Source: ./templates.plugin.4f702a06.js (mode: 'all')
 import nuxt_plugin_axios_1a474586 from 'nuxt_plugin_axios_1a474586' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_vuecookies_6b36a0a5 from 'nuxt_plugin_vuecookies_6b36a0a5' // Source: ../plugins/vue-cookies.js (mode: 'all')
 
 // Component: <NoSsr>
 Vue.component(NoSsr.name, NoSsr)
@@ -34,7 +35,7 @@ Vue.use(Meta, {
   tagIDKeyName: 'hid' // the property name that vue-meta uses to determine whether to overwrite or append a tag
 })
 
-const defaultTransition = {"name":"page","mode":"out-in","appear":false,"appearClass":"appear","appearActiveClass":"appear-active","appearToClass":"appear-to"}
+const defaultTransition = {"name":"page","mode":"out-in","appear":true,"appearClass":"appear","appearActiveClass":"appear-active","appearToClass":"appear-to"}
 
 async function createApp(ssrContext) {
   const router = await createRouter(ssrContext)
@@ -141,6 +142,10 @@ async function createApp(ssrContext) {
 
   if (typeof nuxt_plugin_axios_1a474586 === 'function') {
     await nuxt_plugin_axios_1a474586(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_vuecookies_6b36a0a5 === 'function') {
+    await nuxt_plugin_vuecookies_6b36a0a5(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

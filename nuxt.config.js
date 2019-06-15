@@ -1,5 +1,7 @@
+import webpack from "webpack";
+
 export default {
-  mode: "universal",
+  mode: "spa",
   /*
    ** Headers of the page
    */
@@ -31,7 +33,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ["~/plugins/vue-cookies.js"],
   /*
    ** Nuxt.js modules
    */
@@ -58,7 +60,9 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    retry: true
+  },
   /*
    ** Build configuration
    */
@@ -66,8 +70,13 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    // eslint-disable-next-line no-unused-vars
-    extend(config, ctx) {
+    plugins: [
+      new webpack.ProvidePlugin({
+        _: "lodash"
+        // ...etc.
+      })
+    ],
+    extend(config) {
       const vueLoader = config.module.rules.find(
         rule => rule.loader === "vue-loader"
       );

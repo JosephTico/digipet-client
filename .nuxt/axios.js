@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import axiosRetry from 'axios-retry'
 
 // Axios.prototype cannot be modified
 const axiosExtra = {
@@ -151,6 +152,7 @@ export default (ctx, inject) => {
   // Setup interceptors
 
   setupProgress(axios, ctx)
+  axiosRetry(axios, {})
 
   // Inject axios to the context as $axios
   ctx.$axios = axios
