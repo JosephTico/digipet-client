@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar toggleable="lg" class="mb-3">
-      <b-navbar-brand href="#">
+      <b-navbar-brand to="/" no-prefetch>
         <img
           src="https://placekitten.com/g/30/30"
           class="d-inline-block align-top"
@@ -38,7 +38,7 @@
         >
           <b-form-input
             id="input-1"
-            v-model="form.username"
+            v-model="form.user"
             type="text"
             required
             placeholder="Ingrese un valor"
@@ -96,7 +96,7 @@ export default {
   data() {
     return {
       form: {
-        username: "",
+        user: "",
         password: ""
       },
       loading: false,
@@ -107,14 +107,24 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       this.loading = true;
+      this.$nuxt.$loading.start();
       this.errorString = "";
 
       this.$axios
-        .$post("https://reqres.in/api/login/", this.form)
+        .$post(
+          "http://192.168.1.110:4567/login",
+          "user=" + this.form.user.trim() + "&password=" + this.form.password,
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
         .then(response => {
           console.log(response);
 
           this.loading = false;
+          this.$nuxt.$loading.fail();
         })
         .catch(error => {
           if (_.has(error.response, "data")) {
@@ -124,6 +134,7 @@ export default {
             console.log(this.checkLoggedIn());
           }
           this.loading = false;
+          this.$nuxt.$loading.fail();
         });
     },
     onReset(evt) {

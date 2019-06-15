@@ -25,7 +25,16 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: "#fff" },
+  loading: {
+    color: "blue",
+    throttle: 150
+  },
+
+  loadingIndicator: {
+    name: "circle",
+    color: "#3B8070",
+    background: "white"
+  },
   /*
    ** Global CSS
    */

@@ -43,7 +43,9 @@
                     DigiPet y nosotros nos encargaremos de cuidarla de la mejor
                     manera posible.
                   </b-card-text>
-                  <b-button href="#" variant="primary">Registrarse</b-button>
+                  <b-button to="/signup" variant="primary"
+                    >Registrarse</b-button
+                  >
                 </b-card-body>
               </b-col>
             </b-row>
@@ -65,7 +67,9 @@
                     tiempo libre? Cuide mascotas en su tiempo libre y gane
                     dinero mientras lo hace.
                   </b-card-text>
-                  <b-button href="#" variant="primary">Registrarse</b-button>
+                  <b-button to="/signup" variant="primary"
+                    >Registrarse</b-button
+                  >
                 </b-card-body>
               </b-col>
             </b-row>

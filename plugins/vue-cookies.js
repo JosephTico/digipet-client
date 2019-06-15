@@ -13,6 +13,6 @@ Vue.mixin({
 
 export default function({ $axios }) {
   $axios.onRequest(config => {
-    config.headers.common["access-token"] = "Test";
+    config.headers.common["Authorization"] = "Test";
   });
 }
