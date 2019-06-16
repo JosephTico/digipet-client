@@ -1,7 +1,11 @@
 <template>
   <div>
-    <b-alert v-if="loggedOut" show variant="info"
+    <b-alert v-if="this.$route.query.loggedOut" show variant="info"
       >Se ha cerrado la sesión satisfactoriamente.</b-alert
+    >
+    <b-alert v-if="this.$route.query.forcedLogOut" show variant="warning"
+      >Se ha cerrado la sesión debido a un error. Por favor ingrese
+      nuevamente.</b-alert
     >
     <h3 class="mb-3">Cuidado para sus mascotas, a su alcance</h3>
 

@@ -110,6 +110,9 @@ export default {
   methods: {
     logout() {
       this.$cookies.remove("user");
+      this.$cookies.remove("user.type");
+      this.$cookies.remove("user.id");
+
       this.$router.push({
         path: "/?loggedOut=1"
       });
@@ -134,6 +137,8 @@ export default {
         .then(response => {
           if (response.token) {
             this.$cookies.set("user", response.token, "4h");
+            this.$cookies.set("user.type", response.type, "4h");
+            this.$cookies.set("user.id", response.id, "4h");
             this.$refs["login-modal"].hide();
             this.$router.push({
               path: "/mainscreen"
