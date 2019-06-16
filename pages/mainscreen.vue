@@ -45,7 +45,6 @@
             </b-container>
           </b-row>
         </b-col>
-
         <b-col>
           <b-row class="border rounded mb-2" style="background-color: #E8E9E8">
             <b-container>
@@ -161,7 +160,7 @@
         </b-col>
       </b-row>
     </b-container>
-    </b-row>
+  </b-row>
 </template>
 <script></script>
 
