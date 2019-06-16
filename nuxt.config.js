@@ -42,7 +42,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["~/plugins/vue-cookies.js", "~/plugins/loading.js"],
+  plugins: ["~/plugins/vue-cookies.js", "~/plugins/errorParser.js"],
   /*
    ** Nuxt.js modules
    */

@@ -202,15 +202,19 @@ export default {
           alert(response);
         })
         .catch(error => {
-          alert(error.response);
+          this.errorString = this.errorParser(error);
+          this.loading = false;
+          this.$nuxt.$loading.fail();
         });
       this.loading = false;
       this.$nuxt.$loading.finish();
     },
     onSubmit(event) {
+      event.preventDefault();
       this.loading = true;
       this.$nuxt.$loading.start();
-      event.preventDefault();
+      this.errorString = "";
+
       this.getBase64(this.fileStorage).then(
         data => {
           this.form.photo = data;

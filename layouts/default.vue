@@ -92,8 +92,6 @@
 </template>
 
 <script>
-import _ from "lodash";
-
 export default {
   data() {
     return {
@@ -124,18 +122,11 @@ export default {
         )
         .then(response => {
           console.log(response);
-
           this.loading = false;
           this.$nuxt.$loading.fail();
         })
         .catch(error => {
-          if (_.has(error.response, "data")) {
-            this.errorString = error.response.data.error;
-            console.log(this.checkLoggedIn());
-          } else {
-            this.errorString =
-              "Ha ocurrido un error. Por favor inténtelo de nuevo.";
-          }
+          this.errorString = this.errorParser(error);
           this.loading = false;
           this.$nuxt.$loading.fail();
         });
