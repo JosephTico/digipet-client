@@ -203,7 +203,6 @@ export default {
         })
         .catch(error => {
           this.errorString = this.errorParser(error);
-          this.loading = false;
           this.$nuxt.$loading.fail();
         });
       this.loading = false;

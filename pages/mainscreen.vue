@@ -88,16 +88,14 @@
                       </b-img>
                     </b-col>
                     <b-col class="ml-4">
-                      <b-row class="mb-3 ">
+                      <b-form-row class=" mt-3 ">
                         <h3 class="title">
                           Joseph PICHAS
                         </h3>
-                      </b-row>
-                      <b-row>
                         <h5 class="text-muted ml-2">
                           nombre del animalejo
                         </h5>
-                      </b-row>
+                      </b-form-row>
                     </b-col>
                   </b-row>
                 </b-card>
