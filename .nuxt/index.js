@@ -14,6 +14,7 @@ import nuxt_plugin_bootstrapvue_189d3db5 from 'nuxt_plugin_bootstrapvue_189d3db5
 import nuxt_plugin_templatesplugin4f702a06_52997396 from 'nuxt_plugin_templatesplugin4f702a06_52997396' // Source: ./templates.plugin.4f702a06.js (mode: 'all')
 import nuxt_plugin_axios_1a474586 from 'nuxt_plugin_axios_1a474586' // Source: ./axios.js (mode: 'all')
 import nuxt_plugin_vuecookies_6b36a0a5 from 'nuxt_plugin_vuecookies_6b36a0a5' // Source: ../plugins/vue-cookies.js (mode: 'all')
+import nuxt_plugin_loading_baa1819e from 'nuxt_plugin_loading_baa1819e' // Source: ../plugins/loading.js (mode: 'all')
 
 // Component: <NoSsr>
 Vue.component(NoSsr.name, NoSsr)
@@ -146,6 +147,10 @@ async function createApp(ssrContext) {
 
   if (typeof nuxt_plugin_vuecookies_6b36a0a5 === 'function') {
     await nuxt_plugin_vuecookies_6b36a0a5(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_loading_baa1819e === 'function') {
+    await nuxt_plugin_loading_baa1819e(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

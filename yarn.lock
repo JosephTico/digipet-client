@@ -7496,6 +7496,13 @@ vue-no-ssr@^1.1.1:
   resolved "https://registry.yarnpkg.com/vue-no-ssr/-/vue-no-ssr-1.1.1.tgz#875f3be6fb0ae41568a837f3ac1a80eaa137b998"
   integrity sha512-ZMjqRpWabMPqPc7gIrG0Nw6vRf1+itwf0Itft7LbMXs2g3Zs/NFmevjZGN1x7K3Q95GmIjWbQZTVerxiBxI+0g==
 
+vue-password@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/vue-password/-/vue-password-2.0.2.tgz#abef1d2acdf20e5fb0a4b5c4c10d6aa04b9cfa51"
+  integrity sha512-o9LqLn2oCqpkSaBmLxorCyOluBzWJDedgD8YEKTQrRqOvhCjemjWcTSsiNN1R5Me+blnAV9UD/ZiCIwLiNptcg==
+  dependencies:
+    zxcvbn "^4.4.2"
+
 vue-router@^3.0.6:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.6.tgz#2e4f0f9cbb0b96d0205ab2690cfe588935136ac3"
@@ -7786,3 +7793,8 @@ yallist@^3.0.0, yallist@^3.0.2, yallist@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-3.0.3.tgz#b4b049e314be545e3ce802236d6cd22cd91c3de9"
   integrity sha512-S+Zk8DEWE6oKpV+vI3qWkaK+jSbIK86pCwe2IF/xwIpQ8jEuxpw9NyaGjmp9+BoJv5FV2piqCDcoCtStppiq2A==
+
+zxcvbn@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/zxcvbn/-/zxcvbn-4.4.2.tgz#28ec17cf09743edcab056ddd8b1b06262cc73c30"
+  integrity sha1-KOwXzwl0PtyrBW3dixsGJizHPDA=

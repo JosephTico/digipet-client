@@ -3,7 +3,10 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 
 const _2cd0d28a = () => interopDefault(import('../pages/care.vue' /* webpackChunkName: "pages/care" */))
+const _7b7898e2 = () => interopDefault(import('../pages/mainscreen.vue' /* webpackChunkName: "pages/mainscreen" */))
+const _1e51c508 = () => interopDefault(import('../pages/signpet.vue' /* webpackChunkName: "pages/signpet" */))
 const _b233d67c = () => interopDefault(import('../pages/signup.vue' /* webpackChunkName: "pages/signup" */))
+const _34e5f3ee = () => interopDefault(import('../pages/signupconfirm.vue' /* webpackChunkName: "pages/signupconfirm" */))
 const _28bffb18 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
@@ -85,9 +88,21 @@ export function createRouter() {
       component: _2cd0d28a,
       name: "care"
     }, {
+      path: "/mainscreen",
+      component: _7b7898e2,
+      name: "mainscreen"
+    }, {
+      path: "/signpet",
+      component: _1e51c508,
+      name: "signpet"
+    }, {
       path: "/signup",
       component: _b233d67c,
       name: "signup"
+    }, {
+      path: "/signupconfirm",
+      component: _34e5f3ee,
+      name: "signupconfirm"
     }, {
       path: "/",
       component: _28bffb18,

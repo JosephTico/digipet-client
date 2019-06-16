@@ -42,7 +42,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["~/plugins/vue-cookies.js"],
+  plugins: ["~/plugins/vue-cookies.js", "~/plugins/loading.js"],
   /*
    ** Nuxt.js modules
    */
@@ -70,7 +70,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    retry: true
+    retry: true,
+    baseURL: "http://192.168.1.101:4567"
   },
   /*
    ** Build configuration

@@ -20,7 +20,8 @@
     "lodash": "^4.17.11",
     "nuxt": "^2.8.1",
     "nuxt-fontawesome": "^0.4.0",
-    "vue-cookies": "^1.5.13"
+    "vue-cookies": "^1.5.13",
+    "vue-password": "^2.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

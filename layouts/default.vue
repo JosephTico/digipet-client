@@ -3,9 +3,11 @@
     <b-navbar toggleable="lg" class="mb-3">
       <b-navbar-brand to="/" no-prefetch>
         <img
-          src="https://placekitten.com/g/30/30"
+          src="https://i.ibb.co/XVyy060/Screenshot-20190527192506-651x427.png"
           class="d-inline-block align-top"
           alt="Kitten"
+          width="30"
+          height="30"
         />
         DigiPet
       </b-navbar-brand>
