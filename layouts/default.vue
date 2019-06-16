@@ -111,7 +111,7 @@ export default {
     logout() {
       this.$cookies.remove("user");
       this.$router.push({
-        path: "/"
+        path: "/?loggedOut=1"
       });
       this.$forceUpdate();
     },

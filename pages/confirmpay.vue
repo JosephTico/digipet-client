@@ -9,14 +9,13 @@
     style="max-width: 40rem;"
     class="mx-auto"
   >
-  <h1>Datos del Servicio </h1>
-  <b-row class="ml-1 mr-2"><h3>Costo del Servicio: </h3><h3 align="end"> $50.0 </h3></b-row>
-  
-  <b-row class="ml-1"><h3>Mascota: </h3><h3>{Nombre del bichillo} </h3></b-row>
-  <b-row class="ml-1"><h3>Lugar de recogida: </h3><h3>{Lugar} </h3></b-row>
-  <b-row class="ml-1"><h3>Hora de recogida: </h3><h3>{Hora} </h3></b-row>
-  <b-row class="ml-1"><h3>Descripción: </h3></b-row>
-    <b-card-text>
+  <h1 slot="header">Datos del Servicio </h1>
+  <b-row align-h="between" class="ml-1 mr-1"><h3 class="mr-2">Costo del Servicio: </h3><h3 > $50.0 </h3></b-row>
+  <b-row align-h="between" class="ml-1 mr-1"><h3 class="mr-2">Mascota: </h3><h3  >{Nombre del bichillo} </h3></b-row>
+  <b-row align-h="between"class="ml-1 mr-1"><h3 class="mr-2">Lugar de recogida: </h3><h3>{Lugar} </h3></b-row>
+  <b-row align-h="between" class="ml-1 mr-1"><h3 class="mr-2">Hora de recogida: </h3><h3>{Hora} </h3></b-row>
+  <b-row align-h="between" class="ml-1 mr-1"><h3 class="mr-2">Descripción: </h3></b-row>
+    <b-card-text class="ml-1 mr-1">
       {descripción de la vara de la vara jaja}
     </b-card-text>
 

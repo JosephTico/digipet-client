@@ -1,5 +1,8 @@
 <template>
   <div>
+    <b-alert v-if="loggedOut" show variant="info"
+      >Se ha cerrado la sesión satisfactoriamente.</b-alert
+    >
     <h3 class="mb-3">Cuidado para sus mascotas, a su alcance</h3>
 
     <b-container class="bv-example-row">
@@ -82,7 +85,12 @@
 
 <script>
 export default {
-  middleware: ["non-auth"]
+  middleware: ["non-auth"],
+  computed: {
+    loggedOut: function() {
+      return this.$route.query.loggedOut;
+    }
+  }
 };
 </script>
 
