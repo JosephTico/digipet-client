@@ -114,7 +114,7 @@ export default {
 
       this.$axios
         .$post(
-          "http://192.168.1.110:4567/login",
+          "/login",
           "user=" + this.form.user.trim() + "&password=" + this.form.password,
           {
             headers: {

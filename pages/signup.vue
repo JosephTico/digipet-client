@@ -1,4 +1,4 @@
-<b-alert>
+<template>
   <div>
     <h2 class="title mb-4">Registro (cliente)</h2>
     <p class="lead">
@@ -15,7 +15,7 @@
         <b-col>
           <b-form-group label="Nombre:">
             <b-form-input
-              v-model="form.Name"
+              v-model="form.name"
               placeholder="Inserte su nombre"
               required
             ></b-form-input>
@@ -24,7 +24,7 @@
         <b-col>
           <b-form-group label="Apellidos:">
             <b-form-input
-              v-model="form.LastName"
+              v-model="form.lastName"
               placeholder="Inserte su apellido"
               required
             ></b-form-input>
@@ -36,7 +36,7 @@
         <b-col>
           <b-form-group label="Email:">
             <b-form-input
-              v-model="form.Email1"
+              v-model="form.email1"
               placeholder="Inserte su email"
               type="email"
               required
@@ -46,7 +46,7 @@
         <b-col>
           <b-form-group label="Email adicional (opcional):">
             <b-form-input
-              v-model="form.Email2"
+              v-model="form.email2"
               placeholder="Inserte un email adicional"
               type="email"
             ></b-form-input>
@@ -58,7 +58,7 @@
         <b-col>
           <b-form-group label="Teléfono móvil:">
             <b-form-input
-              v-model="form.Phone"
+              v-model="form.phone"
               placeholder="Inserte su número de teléfono"
               required
               type="tel"
@@ -85,7 +85,7 @@
           <b-form-group label="Contraseña:">
             <VuePassword
               id="password1"
-              v-model="form.Password"
+              v-model="form.password"
               disable-strength
               type="password"
               required
@@ -96,10 +96,31 @@
         <b-col>
           <b-form-group label="Descripción personal:">
             <b-form-input
-              v-model="form.PersonalDescription"
+              v-model="form.personalDescription"
               placeholder="Inserte una descripción para su perfil"
               required
             ></b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-form-row>
+
+      <b-form-row>
+        <b-col>
+          <b-form-group label="Provincia:">
+            <b-form-select
+              v-model="form.idProvince"
+              :options="provinces"
+              required
+            ></b-form-select>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group label="Cantones:">
+            <b-form-select
+              v-model="form.idCanton"
+              :options="cantones"
+              required
+            ></b-form-select>
           </b-form-group>
         </b-col>
       </b-form-row>
@@ -118,10 +139,12 @@
       >
     </b-form>
   </div>
-</b-alert>
+</template>
 
 <script>
 import { VuePassword } from "vue-password";
+import cantonesJson from "../assets/cantones.json";
+import provinciasJson from "../assets/provincias.json";
 
 export default {
   components: {
@@ -130,12 +153,31 @@ export default {
   data() {
     return {
       form: {
-        file: ""
+        photo: ""
       },
       fileStorage: null,
       errorString: "",
       loading: false
     };
+  },
+
+  computed: {
+    provinces() {
+      return provinciasJson.map(item => {
+        return { value: item.IdProvince, text: item.Name };
+      });
+    },
+    cantones() {
+      return cantonesJson
+        .map(item => {
+          return { value: item.IdCanton, text: item.Name };
+        })
+        .filter(item => {
+          return (
+            cantonesJson[item.value - 1].IdProvince == this.form.idProvince
+          );
+        });
+    }
   },
 
   methods: {
@@ -144,7 +186,7 @@ export default {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
-          let encoded = reader.result.replace(/^data:(.*;base64,)?/, "");
+          let encoded = reader.result;
           if (encoded.length % 4 > 0) {
             encoded += "=".repeat(4 - (encoded.length % 4));
           }
@@ -153,18 +195,31 @@ export default {
         reader.onerror = error => reject(error);
       });
     },
+    sendData() {
+      this.$axios
+        .$post("/signup/clients", this.form)
+        .then(response => {
+          alert(response);
+        })
+        .catch(error => {
+          alert(error.response);
+        });
+      this.loading = false;
+      this.$nuxt.$loading.finish();
+    },
     onSubmit(event) {
       this.loading = true;
       this.$nuxt.$loading.start();
       event.preventDefault();
       this.getBase64(this.fileStorage).then(
         data => {
-          alert(data);
-          this.loading = false;
-          this.$nuxt.$loading.finish();
+          this.form.photo = data;
+          this.sendData();
         },
         () => {
           this.form.errorString = "La foto es inválida. Por favor elija otra.";
+          this.form.photo = "";
+          this.fileStorage = null;
           this.loading = false;
           this.$nuxt.$loading.fail();
         }
