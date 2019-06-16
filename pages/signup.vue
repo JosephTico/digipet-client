@@ -1,9 +1,16 @@
 <template>
   <div>
-    <h2 class="title mb-4">Registro (cliente)</h2>
-    <p class="lead">
+    <h2 class="title mb-4">
+      Registro <span v-if="isClient">(cliente)</span
+      ><span v-else>(estudiante cuidador)</span>
+    </h2>
+    <p v-if="isClient" class="lead">
       Por favor complete los siguientes datos para registrarse como cliente en
       DigiPet
+    </p>
+    <p v-else class="lead">
+      Por favor complete los siguientes datos para registrarse como estudiante
+      cuidador en DigiPet.
     </p>
 
     <b-alert v-show="errorString" show variant="danger">
@@ -17,6 +24,7 @@
             <b-form-input
               v-model="form.name"
               placeholder="Inserte su nombre"
+              maxlength="30"
               required
             ></b-form-input>
           </b-form-group>
@@ -26,6 +34,7 @@
             <b-form-input
               v-model="form.lastName"
               placeholder="Inserte su apellido"
+              maxlength="30"
               required
             ></b-form-input>
           </b-form-group>
@@ -39,6 +48,7 @@
               v-model="form.email1"
               placeholder="Inserte su email"
               type="email"
+              maxlength="30"
               required
             ></b-form-input>
           </b-form-group>
@@ -49,6 +59,7 @@
               v-model="form.email2"
               placeholder="Inserte un email adicional"
               type="email"
+              maxlength="30"
             ></b-form-input>
           </b-form-group>
         </b-col>
@@ -63,6 +74,7 @@
               required
               type="tel"
               pattern="[0-9]{8}"
+              maxlength="8"
             ></b-form-input>
           </b-form-group>
         </b-col>
@@ -90,6 +102,7 @@
               type="password"
               required
               classes="form-control"
+              maxlength="100"
             />
           </b-form-group>
         </b-col>
@@ -99,6 +112,7 @@
               v-model="form.personalDescription"
               placeholder="Inserte una descripción para su perfil"
               required
+              maxlength="250"
             ></b-form-input>
           </b-form-group>
         </b-col>
@@ -115,12 +129,61 @@
           </b-form-group>
         </b-col>
         <b-col>
-          <b-form-group label="Cantones:">
+          <b-form-group label="Cantón:">
             <b-form-select
               v-model="form.idCanton"
               :options="cantones"
+              :disabled="cantones.length == 0"
               required
             ></b-form-select>
+          </b-form-group>
+        </b-col>
+      </b-form-row>
+
+      <b-form-row v-if="!isClient">
+        <b-col>
+          <b-form-group label="Universidad:">
+            <b-form-select
+              v-model="form.idUniversity"
+              :options="universities"
+              required
+            ></b-form-select>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group label="Carnet:">
+            <b-form-input
+              v-model="form.idStudent"
+              required
+              placeholder="Inserte su carnet acá"
+              maxlength="10"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-form-row>
+
+      <b-form-row v-if="!isClient">
+        <b-col>
+          <b-form-group label="Provincias adicionales:">
+            <b-form-checkbox v-model="form.worksInOtherProvince">
+              Quiero que se me asignen trabajos en otras provincias
+            </b-form-checkbox>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group
+            v-if="form.worksInOtherProvince"
+            label="Seleccione las provincias adicionales:"
+          >
+            <Multiselect
+              v-model="additionalProvinces"
+              label="text"
+              track-by="value"
+              :multiple="true"
+              required
+              :options="multiselectProvinces"
+            >
+            </Multiselect>
           </b-form-group>
         </b-col>
       </b-form-row>
@@ -145,10 +208,12 @@
 import { VuePassword } from "vue-password";
 import cantonesJson from "../assets/cantones.json";
 import provinciasJson from "../assets/provincias.json";
+import Multiselect from "vue-multiselect";
 
 export default {
   components: {
-    VuePassword
+    VuePassword,
+    Multiselect
   },
   middleware: ["non-auth"],
   data() {
@@ -157,15 +222,36 @@ export default {
         photo: ""
       },
       fileStorage: null,
+      additionalProvinces: [],
       errorString: "",
-      loading: false
+      loading: false,
+      universities: [
+        { value: 1, text: "Tecnológico de Costa Rica" },
+        { value: 2, text: "Universidad de Costa Rica" },
+        { value: 3, text: "Universidad Nacional" },
+        { value: 4, text: "UNED" },
+        { value: 5, text: "UTN" }
+      ]
     };
   },
 
   computed: {
+    type() {
+      if (this.$route.query.type == "student") return "student";
+      return "client";
+    },
+    isClient() {
+      if (this.$route.query.type == "student") return false;
+      return true;
+    },
     provinces() {
       return provinciasJson.map(item => {
         return { value: item.IdProvince, text: item.Name };
+      });
+    },
+    multiselectProvinces() {
+      return this.provinces.filter(item => {
+        return item.value != this.form.idProvince;
       });
     },
     cantones() {
@@ -196,18 +282,37 @@ export default {
         reader.onerror = error => reject(error);
       });
     },
+    prepareAdditionalProvinces() {
+      this.form.otherProvincesId = this.additionalProvinces.map(item => {
+        return item.value;
+      });
+    },
     sendData() {
+      let url;
+      if (this.isClient) {
+        url = "/signup/clients";
+      } else {
+        url = "/signup/students";
+      }
+
       this.$axios
-        .$post("/signup/clients", this.form)
+        .$post(url, this.form)
         .then(response => {
-          alert(response);
+          this.$cookies.set("user", response.token, "4h");
+          this.$cookies.set("user.type", response.type, "4h");
+          this.$cookies.set("user.id", response.id, "4h");
+          this.loading = false;
+          this.$nuxt.$loading.finish();
+          this.$router.push({
+            path: "/signupconfirm"
+          });
+          this.$forceUpdate();
         })
         .catch(error => {
           this.errorString = this.errorParser(error);
+          this.loading = false;
           this.$nuxt.$loading.fail();
         });
-      this.loading = false;
-      this.$nuxt.$loading.finish();
     },
     onSubmit(event) {
       event.preventDefault();
@@ -218,6 +323,7 @@ export default {
       this.getBase64(this.fileStorage).then(
         data => {
           this.form.photo = data;
+          if (this.type == "student") this.prepareAdditionalProvinces();
           this.sendData();
         },
         () => {
@@ -234,3 +340,4 @@ export default {
 </script>
 
 <style></style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

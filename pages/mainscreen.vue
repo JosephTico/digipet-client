@@ -1,9 +1,18 @@
 <template>
   <b-row>
-    <b-container>
+    <b-container></b-container>
       <b-row>
         <b-col>
+          <!-- <b-alert v-if="type == 'client'"></b-alert>
+          <b-alert v-if="type == 'admin'"></b-alert>
+          <b-alert v-if="type == 'student'"></b-alert>
+
+          <b-alert v-if="type == 'client'"></b-alert>
+          <b-alert v-else-if="type == 'client'"></b-alert>
+          <b-alert v-else></b-alert> -->
+
           <b-row class="border rounded mr-2 " style="background-color: #E8E9E8">
+          
             <b-img
               thumbnail
               mx-auto
@@ -165,7 +174,14 @@
 
 <script>
 export default {
-  middleware: "auth"
+  middleware: "auth",
+  computed: {
+    type() {
+      if (this.$route.query.type == "student") return "student";
+      if (this.$route.query.type == "admin") return "admin";
+      return "client";
+    }
+  }
 };
 </script>
 

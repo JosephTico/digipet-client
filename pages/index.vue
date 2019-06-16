@@ -74,7 +74,7 @@
                     tiempo libre? Cuide mascotas en su tiempo libre y gane
                     dinero mientras lo hace.
                   </b-card-text>
-                  <b-button to="/signup" variant="primary"
+                  <b-button to="/signup?type=student" variant="primary"
                     >Registrarse</b-button
                   >
                 </b-card-body>

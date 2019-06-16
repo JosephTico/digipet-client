@@ -5,9 +5,11 @@ import { interopDefault } from './utils'
 const _2cd0d28a = () => interopDefault(import('../pages/care.vue' /* webpackChunkName: "pages/care" */))
 const _22edd7e5 = () => interopDefault(import('../pages/caredata.vue' /* webpackChunkName: "pages/caredata" */))
 const _6abb8424 = () => interopDefault(import('../pages/carerequest.vue' /* webpackChunkName: "pages/carerequest" */))
+const _34b89999 = () => interopDefault(import('../pages/caresrecord.vue' /* webpackChunkName: "pages/caresrecord" */))
 const _50fd96dc = () => interopDefault(import('../pages/confirmpay.vue' /* webpackChunkName: "pages/confirmpay" */))
 const _7b7898e2 = () => interopDefault(import('../pages/mainscreen.vue' /* webpackChunkName: "pages/mainscreen" */))
 const _38758ade = () => interopDefault(import('../pages/report.vue' /* webpackChunkName: "pages/report" */))
+const _51816241 = () => interopDefault(import('../pages/schedule.vue' /* webpackChunkName: "pages/schedule" */))
 const _1e51c508 = () => interopDefault(import('../pages/signpet.vue' /* webpackChunkName: "pages/signpet" */))
 const _b233d67c = () => interopDefault(import('../pages/signup.vue' /* webpackChunkName: "pages/signup" */))
 const _34e5f3ee = () => interopDefault(import('../pages/signupconfirm.vue' /* webpackChunkName: "pages/signupconfirm" */))
@@ -100,6 +102,10 @@ export function createRouter() {
       component: _6abb8424,
       name: "carerequest"
     }, {
+      path: "/caresrecord",
+      component: _34b89999,
+      name: "caresrecord"
+    }, {
       path: "/confirmpay",
       component: _50fd96dc,
       name: "confirmpay"
@@ -111,6 +117,10 @@ export function createRouter() {
       path: "/report",
       component: _38758ade,
       name: "report"
+    }, {
+      path: "/schedule",
+      component: _51816241,
+      name: "schedule"
     }, {
       path: "/signpet",
       component: _1e51c508,

@@ -34,7 +34,7 @@
       </b-form-row>
       <b-form-row>
         <b-col>
-          <b-form-group label="Tamaño de mi mascota:">
+          <b-form-group label="Tamaño de su mascota:">
             <b-form-select
               id="inline-form-custom-select-pref"
               v-model="form.Size"
@@ -45,6 +45,20 @@
             >
               <option slot="first" :value="null">Escoja una opción...</option>
             </b-form-select>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group label="Foto de su mascota:">
+            <b-form-file
+              v-model="fileStorage"
+              placeholder="Elija una o varias imagenes..."
+              drop-placeholder="Arrastre la imagen acá..."
+              accept="image/jpeg, image/png, image/gif"
+              browse-text="Explorar"
+              required
+              multiple
+              :file-name-formatter="formatNames"
+            ></b-form-file>
           </b-form-group>
         </b-col>
       </b-form-row>
@@ -85,6 +99,13 @@ export default {
     onSubmit(event) {
       event.preventDefault();
       alert(JSON.stringify(this.form));
+    },
+    formatNames(files) {
+      if (files.length === 1) {
+        return files[0].name;
+      } else {
+        return `${files.length} fotos seleccionadas`;
+      }
     }
   }
 };
