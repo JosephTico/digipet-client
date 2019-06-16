@@ -7,7 +7,7 @@
           class="d-inline-block align-top"
           alt="Kitten"
         />
-        Digipet
+        DigiPet
       </b-navbar-brand>
 
       <!-- Right aligned nav items -->
@@ -128,10 +128,11 @@ export default {
         })
         .catch(error => {
           if (_.has(error.response, "data")) {
-            this.loading = false;
             this.errorString = error.response.data.error;
-            console.log(this.$cookies.get("Holamundo"));
             console.log(this.checkLoggedIn());
+          } else {
+            this.errorString =
+              "Ha ocurrido un error. Por favor inténtelo de nuevo.";
           }
           this.loading = false;
           this.$nuxt.$loading.fail();
