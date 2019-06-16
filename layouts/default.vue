@@ -14,7 +14,10 @@
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <b-button v-b-modal.login-modal variant="primary"
+        <b-button v-if="checkLoggedIn()" variant="primary" @click="logout"
+          >Cerrar sesión</b-button
+        >
+        <b-button v-else v-b-modal.login-modal variant="primary"
           >Iniciar sesión</b-button
         >
       </b-navbar-nav>
@@ -105,6 +108,13 @@ export default {
     };
   },
   methods: {
+    logout() {
+      this.$cookies.remove("user");
+      this.$router.push({
+        path: "/"
+      });
+      this.$forceUpdate();
+    },
     onSubmit(evt) {
       evt.preventDefault();
       this.loading = true;

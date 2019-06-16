@@ -80,7 +80,11 @@
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  middleware: ["non-auth"]
+};
+</script>
 
 <style>
 .card-img {

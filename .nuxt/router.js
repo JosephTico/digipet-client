@@ -4,6 +4,8 @@ import { interopDefault } from './utils'
 
 const _2cd0d28a = () => interopDefault(import('../pages/care.vue' /* webpackChunkName: "pages/care" */))
 const _22edd7e5 = () => interopDefault(import('../pages/caredata.vue' /* webpackChunkName: "pages/caredata" */))
+const _6abb8424 = () => interopDefault(import('../pages/carerequest.vue' /* webpackChunkName: "pages/carerequest" */))
+const _50fd96dc = () => interopDefault(import('../pages/confirmpay.vue' /* webpackChunkName: "pages/confirmpay" */))
 const _7b7898e2 = () => interopDefault(import('../pages/mainscreen.vue' /* webpackChunkName: "pages/mainscreen" */))
 const _38758ade = () => interopDefault(import('../pages/report.vue' /* webpackChunkName: "pages/report" */))
 const _1e51c508 = () => interopDefault(import('../pages/signpet.vue' /* webpackChunkName: "pages/signpet" */))
@@ -93,6 +95,14 @@ export function createRouter() {
       path: "/caredata",
       component: _22edd7e5,
       name: "caredata"
+    }, {
+      path: "/carerequest",
+      component: _6abb8424,
+      name: "carerequest"
+    }, {
+      path: "/confirmpay",
+      component: _50fd96dc,
+      name: "confirmpay"
     }, {
       path: "/mainscreen",
       component: _7b7898e2,

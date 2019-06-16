@@ -162,7 +162,12 @@
     </b-container>
   </b-row>
 </template>
-<script></script>
+
+<script>
+export default {
+  middleware: "auth"
+};
+</script>
 
 <style>
 .card-img {

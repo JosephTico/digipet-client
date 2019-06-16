@@ -150,6 +150,7 @@ export default {
   components: {
     VuePassword
   },
+  middleware: ["non-auth"],
   data() {
     return {
       form: {
