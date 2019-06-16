@@ -116,7 +116,7 @@
                 </h2>
               <b-card
                   no-body
-                  class="overflow-hidden mt-1"
+                  class="overflow-hidden mb-2 ml-3"
                   style="max-width: 540px;"
                 >
                   <b-row no-gutters style="height:100px">
