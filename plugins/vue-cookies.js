@@ -6,7 +6,7 @@ Vue.use(VueCookies);
 Vue.mixin({
   methods: {
     checkLoggedIn() {
-      return this.$cookies.get("user");
+      return this.$cookies.isKey("user");
     }
   }
 });

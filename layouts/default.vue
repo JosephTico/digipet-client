@@ -22,6 +22,7 @@
 
     <b-modal
       id="login-modal"
+      ref="login-modal"
       title="Iniciar sesión"
       centered
       ok-title="Ingresar"
@@ -32,7 +33,7 @@
         {{ errorString }}
       </b-alert>
 
-      <b-form @submit="onSubmit" @reset="onReset">
+      <b-form @submit="onSubmit">
         <b-form-group
           id="input-group-1"
           label="Email o usuario:"
@@ -121,28 +122,24 @@ export default {
           }
         )
         .then(response => {
-          console.log(response);
+          if (response.token) {
+            this.$cookies.set("user", response.token, "4h");
+            this.$refs["login-modal"].hide();
+            this.$router.push({
+              path: "/mainscreen"
+            });
+          } else {
+            this.errorString =
+              "Ha ocurrido un error desconocido. Por favor inténtelo de nuevo";
+          }
           this.loading = false;
-          this.$nuxt.$loading.fail();
+          this.$nuxt.$loading.finish();
         })
         .catch(error => {
           this.errorString = this.errorParser(error);
           this.loading = false;
           this.$nuxt.$loading.fail();
         });
-    },
-    onReset(evt) {
-      evt.preventDefault();
-      // Reset our form values
-      this.form.email = "";
-      this.form.name = "";
-      this.form.food = null;
-      this.form.checked = [];
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
     }
   }
 };
@@ -166,35 +163,6 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
 }
 
 .navbar {

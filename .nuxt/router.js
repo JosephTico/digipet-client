@@ -3,7 +3,9 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 
 const _2cd0d28a = () => interopDefault(import('../pages/care.vue' /* webpackChunkName: "pages/care" */))
+const _22edd7e5 = () => interopDefault(import('../pages/caredata.vue' /* webpackChunkName: "pages/caredata" */))
 const _7b7898e2 = () => interopDefault(import('../pages/mainscreen.vue' /* webpackChunkName: "pages/mainscreen" */))
+const _38758ade = () => interopDefault(import('../pages/report.vue' /* webpackChunkName: "pages/report" */))
 const _1e51c508 = () => interopDefault(import('../pages/signpet.vue' /* webpackChunkName: "pages/signpet" */))
 const _b233d67c = () => interopDefault(import('../pages/signup.vue' /* webpackChunkName: "pages/signup" */))
 const _34e5f3ee = () => interopDefault(import('../pages/signupconfirm.vue' /* webpackChunkName: "pages/signupconfirm" */))
@@ -88,9 +90,17 @@ export function createRouter() {
       component: _2cd0d28a,
       name: "care"
     }, {
+      path: "/caredata",
+      component: _22edd7e5,
+      name: "caredata"
+    }, {
       path: "/mainscreen",
       component: _7b7898e2,
       name: "mainscreen"
+    }, {
+      path: "/report",
+      component: _38758ade,
+      name: "report"
     }, {
       path: "/signpet",
       component: _1e51c508,
