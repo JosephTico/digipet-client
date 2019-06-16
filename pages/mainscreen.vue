@@ -1,7 +1,7 @@
 <template>
-  <b-col>
+  <b-row>
     <b-container>
-      <b-col>
+      <b-row>
         <b-col>
           <b-row class="border rounded mr-2">
             <b-img
@@ -46,7 +46,7 @@
           </b-row>
         </b-col>
         <b-col>
-          <b-col class="border rounded mb-2">
+          <b-row class="border rounded mb-2">
             <b-container>
               <div>
                 <h2 class="title mb-3 mu-2 ">Próximos Cuidados</h2>
@@ -56,7 +56,7 @@
                   class="overflow-hidden"
                   style="max-width: 540px;"
                 >
-                  <b-col no-gutters>
+                  <b-row no-gutters>
                     <b-col md="3">
                       <b-card border-variant="primary" align="center">
                         <b-card-text
@@ -74,26 +74,25 @@
                         </b-card-text>
                       </b-card-body>
                     </b-col>
-                  </b-col>
+                  </b-row>
                 </b-card>
               </div>
             </b-container>
-          </b-col>
+          </b-row>
           <b-row class="border rounded mb-5">
             Reportes
           </b-row>
         </b-col>
-      </b-col>
-    </b-container>
-  </b-col>
-</template>
+      </b-row>
+      <script></script>
 
-<script></script>
-
-<style>
-.card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-</style>
+      <style>
+        .card-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      </style>
+    </b-container></b-row
+  ></template
+>
