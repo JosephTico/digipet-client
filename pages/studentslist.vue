@@ -2,7 +2,7 @@
   <div>
     <h2 class="title mb-4">
       Cuidadores registrados
-      <b-button to="/settings" variant="outline-primary">Atrás</b-button>
+      <b-button to="/mainscreen" variant="outline-primary">Atrás</b-button>
     </h2>
 
     <b-row>
