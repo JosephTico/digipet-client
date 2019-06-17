@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+const _26ae1bbd = () => interopDefault(import('../pages/borrador.vue' /* webpackChunkName: "pages/borrador" */))
 const _2cd0d28a = () => interopDefault(import('../pages/care.vue' /* webpackChunkName: "pages/care" */))
 const _22edd7e5 = () => interopDefault(import('../pages/caredata.vue' /* webpackChunkName: "pages/caredata" */))
 const _6abb8424 = () => interopDefault(import('../pages/carerequest.vue' /* webpackChunkName: "pages/carerequest" */))
@@ -95,6 +96,10 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
+      path: "/borrador",
+      component: _26ae1bbd,
+      name: "borrador"
+    }, {
       path: "/care",
       component: _2cd0d28a,
       name: "care"

@@ -276,15 +276,54 @@ export default {
   },
 
   methods: {
+    resizeImage(settings) {
+      var file = settings.file;
+      var maxSize = settings.maxSize;
+      var reader = new FileReader();
+      var image = new Image();
+      var canvas = document.createElement("canvas");
+
+      var resize = function() {
+        var width = image.width;
+        var height = image.height;
+        if (width > height) {
+          if (width > maxSize) {
+            height *= maxSize / width;
+            width = maxSize;
+          }
+        } else {
+          if (height > maxSize) {
+            width *= maxSize / height;
+            height = maxSize;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0, width, height);
+        return canvas.toDataURL("image/jpeg");
+      };
+      return new Promise(function(ok, no) {
+        if (!file.type.match(/image.*/)) {
+          no(new Error("Not an image"));
+          return;
+        }
+        reader.onload = function(readerEvent) {
+          image.onload = function() {
+            return ok(resize());
+          };
+          image.src = readerEvent.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    },
     getBase64(file) {
       return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          let encoded = reader.result;
-          resolve(encoded);
-        };
-        reader.onerror = error => reject(error);
+        this.resizeImage({
+          file: file,
+          maxSize: 400
+        })
+          .then(img => resolve(img))
+          .catch(error => reject(error));
       });
     },
     prepareAdditionalProvinces() {
@@ -324,6 +363,7 @@ export default {
       this.getBase64(this.fileStorage).then(
         data => {
           this.form.photo = data;
+          console.log(data);
           if (this.type == "student") this.prepareAdditionalProvinces();
           this.sendData();
         },

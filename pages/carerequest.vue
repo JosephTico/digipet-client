@@ -5,7 +5,7 @@
         ><h2 class="title mb-4">Pedir servicio de cuido</h2></b-col
       >
       <b-col
-        ><b-button href="/mainscreen" variant="primary">Atrás</b-button></b-col
+        ><b-button to="/mainscreen" variant="primary">Atrás</b-button></b-col
       >
     </b-row>
 
@@ -54,6 +54,8 @@
               v-model="date.date"
               input-class="form-control"
               required
+              value-zone="local"
+              zone="local"
             ></datetime>
           </b-form-group>
         </b-col>
@@ -216,10 +218,10 @@ export default {
         file: ""
       },
       date: {
-        startHour: "9",
-        startMinutes: "30",
-        endHour: "16",
-        endMinutes: "30"
+        startHour: "12",
+        startMinutes: "0",
+        endHour: "13",
+        endMinutes: "0"
       },
       fileStorage: null,
       errorString: "",
@@ -272,7 +274,27 @@ export default {
       this.loading = false;
     },
     loadPrice() {
-      console.log("Aqui calculo el precio");
+      this.$axios
+        .$post("/services/price", {
+          startTime: this.form.startTime,
+          endTime: this.form.endTime
+        })
+        .then(response => {
+          this.price = response.price;
+          this.confirmRequest();
+        })
+        .catch(error => {
+          console.error(error.response);
+          this.loading = false;
+          this.$bvModal.msgBoxOk(
+            "Ha ocurrido un error al hacer la solicitud. Por favor inténtelo de nuevo.",
+            {
+              title: "Lo sentimos",
+              centered: true,
+              hideHeaderClose: true
+            }
+          );
+        });
     },
     loadCareGiver() {
       this.$axios
@@ -284,7 +306,8 @@ export default {
           location: " "
         })
         .then(response => {
-          console.log(response);
+          this.form.idCaregiver = response.caregiver;
+          console.log(this.form);
           this.loadPrice();
         })
         .catch(error => {
@@ -301,15 +324,18 @@ export default {
     confirmRequest() {
       this.boxTwo = "";
       this.$bvModal
-        .msgBoxConfirm("¿Desea confirmar esta solicitud?", {
-          title: "Por favor confirme",
-          size: "sm",
-          okTitle: "Sí",
-          cancelTitle: "No",
-          footerClass: "p-2",
-          hideHeaderClose: false,
-          centered: true
-        })
+        .msgBoxConfirm(
+          "¿Desea confirmar esta solicitud? Precio: $" + this.price,
+          {
+            title: "Por favor confirme",
+            size: "sm",
+            okTitle: "Sí",
+            cancelTitle: "No",
+            footerClass: "p-2",
+            hideHeaderClose: false,
+            centered: true
+          }
+        )
         .then(value => {
           if (value) this.sendRequest();
           else this.loading = false;

@@ -32,8 +32,8 @@
         {descripción de la vara de la vara jaja}
       </b-card-text>
 
-      <b-button variant="primary" href="#">Cancelar</b-button>
-      <b-button variant="success" href="#">Confirmar y hacer pago</b-button>
+      <b-button variant="primary" to="/carerequest">Cancelar</b-button>
+      <b-button variant="success" to="#">Confirmar y hacer pago</b-button>
     </b-card>
   </div>
 </template>

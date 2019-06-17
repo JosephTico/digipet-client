@@ -17,7 +17,7 @@
           v-if="ready"
           :title="name"
           tag="article"
-          style="max-width: 40rem;"
+          style="max-width: 30rem;"
           class="mx-auto"
         >
           <b-card-sub-title class="mb-2">{{ tipoLabel }}</b-card-sub-title>
@@ -73,7 +73,7 @@
             </b-card-text>
           </b-card-text>
 
-          <b-button class="mr-2" href="/mainscreen" variant="primary">Volver</b-button>
+          <b-button class="mr-2" to="/mainscreen" variant="primary">Volver</b-button>
           <b-button href="/schedule" variant="primary">Ver horarios</b-button>
         </b-card>
         <b-card

@@ -20,7 +20,7 @@
         </b-row>
       </b-col>
       <b-col>
-        <b-button href="/mainscreen" variant="primary">Atrás</b-button>
+        <b-button to="/mainscreen" variant="primary">Atrás</b-button>
       </b-col>
     </b-row>
     <b-row>

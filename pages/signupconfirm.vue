@@ -27,7 +27,7 @@
             gran familia.
           </b-card-text>
 
-          <b-button href="/mainscreen" variant="primary">Continuar</b-button>
+          <b-button to="/mainscreen" variant="primary">Continuar</b-button>
         </b-card>
         <b-card
           v-else

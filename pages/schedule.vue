@@ -66,8 +66,8 @@
       </b-card>
     </b-collapse>
     <div class="mt-2">
-      <b-button variant="primary" href="/mainscreen">Cancelar</b-button>
-      <b-button variant="success" href="#">Confirmar</b-button>
+      <b-button variant="primary" to="/mainscreen">Cancelar</b-button>
+      <b-button variant="success" to="#">Confirmar</b-button>
     </div>
   </div>
 </template>

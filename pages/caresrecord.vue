@@ -3,7 +3,7 @@
     <b-row align-h="between">
       <b-col cols="10"><h2 class="title mb-4">Cuidados Anteriores</h2></b-col>
       <b-col
-        ><b-button href="/mainscreen" variant="primary">Atrás</b-button>
+        ><b-button to="/mainscreen" variant="primary">Atrás</b-button>
       </b-col>
 
       <b-row class="border rounded mb-2" style="background-color: #E8E9E8">
