@@ -31,13 +31,18 @@
             </b-form-select>
           </b-form-group>
         </b-col>
+        <b-col>
+          <b-form-group label="Escoger fecha:">
+            <b-col><datetime v-model="form.Date"></datetime></b-col>
+          </b-form-group>
+        </b-col>
       </b-form-row>
       <b-form-row>
         <b-col>
           <b-form-group label="Hora inicio:">
             <b-form-select
               id="inline-form-custom-select-pref"
-              v-model="form.hour"
+              v-model="form.StartHour"
               class="mb-2 mr-sm-2 mb-sm-0"
               required
               :value="null"
@@ -81,7 +86,7 @@
           <b-form-group class="" label=" ">
             <b-form-select
               id="inline-form-custom-select-pref"
-              v-model="form.Size"
+              v-model="form.StartMinutes"
               class="mb-2 mr-sm-2 mb-sm-0 mt-4"
               required
               :value="null"
@@ -97,7 +102,7 @@
           <b-form-group label="Hora final:">
             <b-form-select
               id="inline-form-custom-select-pref"
-              v-model="form.hour"
+              v-model="form.EndHour"
               class="mb-2 mr-sm-2 mb-sm-0"
               required
               :value="null"
@@ -141,7 +146,7 @@
           <b-form-group class="" label=" ">
             <b-form-select
               id="inline-form-custom-select-pref"
-              v-model="form.Size"
+              v-model="form.EndMinutes"
               class="mb-2 mr-sm-2 mb-sm-0 mt-4"
               required
               :value="null"
@@ -189,7 +194,12 @@
 </template>
 
 <script>
+import { Datetime } from "vue-datetime";
+import "vue-datetime/dist/vue-datetime.css";
 export default {
+  components: {
+    datetime: Datetime
+  },
   data() {
     return {
       form: {

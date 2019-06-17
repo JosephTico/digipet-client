@@ -152,7 +152,7 @@ export default (ctx, inject) => {
   // Setup interceptors
 
   setupProgress(axios, ctx)
-  axiosRetry(axios, {})
+  axiosRetry(axios, {"retries":3})
 
   // Inject axios to the context as $axios
   ctx.$axios = axios

@@ -74,7 +74,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    retry: true,
+    retry: { retries: 3 },
     baseURL: "http://192.168.1.106:4567"
   },
   /*

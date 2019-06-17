@@ -274,9 +274,6 @@ export default {
         reader.readAsDataURL(file);
         reader.onload = () => {
           let encoded = reader.result;
-          if (encoded.length % 4 > 0) {
-            encoded += "=".repeat(4 - (encoded.length % 4));
-          }
           resolve(encoded);
         };
         reader.onerror = error => reject(error);
@@ -301,7 +298,6 @@ export default {
           this.$cookies.set("user", response.token, "4h");
           this.$cookies.set("user.type", response.type, "4h");
           this.$cookies.set("user.id", response.id, "4h");
-          this.loading = false;
           this.$nuxt.$loading.finish();
           this.$router.push({
             path: "/signupconfirm"
