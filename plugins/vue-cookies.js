@@ -43,6 +43,7 @@ Vue.mixin({
 
 export default function({ $axios }) {
   if (VueCookies.isKey("user")) {
+    $axios.defaults.timeout = 50000;
     $axios.onRequest(config => {
       config.headers.common["Authorization"] = VueCookies.get("user");
     });

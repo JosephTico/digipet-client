@@ -36,7 +36,7 @@
             </b-row>
             <b-row align-h="center" class="mb-3">
               <b-button
-                to="/"
+                to="/schedule"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
                 >Mis Horarios</b-button
@@ -44,7 +44,7 @@
             </b-row>
             <b-row align-h="center" class="mb-3">
               <b-button
-                to="/"
+                to="/caresrecord"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
                 >Cuidados Anteriores</b-button
@@ -52,7 +52,7 @@
             </b-row>
             <b-row align-h="center" class="mb-3">
               <b-button
-                to="/"
+                to="/schedule"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
                 >Perfil y Opciónes</b-button

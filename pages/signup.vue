@@ -219,7 +219,16 @@ export default {
   data() {
     return {
       form: {
-        photo: ""
+        photo: "",
+        name: "Tester",
+        lastName: "Tester2",
+        password: "test",
+        personalDescription: "Test",
+        idProvince: 1,
+        idCanton: 1,
+        idUniversity: 1,
+        email1: "test@test.com",
+        phone: "88888888"
       },
       fileStorage: null,
       additionalProvinces: [],
@@ -299,7 +308,7 @@ export default {
           this.$cookies.set("user.type", response.type, "4h");
           this.$cookies.set("user.id", response.id, "4h");
           this.$nuxt.$loading.finish();
-          window.location("/signupconfirm");
+          location.href = "/signupconfirm";
         })
         .catch(error => {
           this.errorString = this.errorParser(error);

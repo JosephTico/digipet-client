@@ -14,20 +14,22 @@
         <b-col>
           <b-form-group label="Nombre:">
             <b-form-input
-              v-model="form.Name"
+              v-model="form.name"
               placeholder="Inserte el nombre de su mascota"
               required
+              maxlength="30"
             ></b-form-input>
           </b-form-group>
         </b-col>
         <b-col>
           <b-form-group label="Edad:">
             <b-form-input
-              v-model="form.Age"
+              v-model="form.age"
               placeholder="Inserte la edad de su mascota"
               required
               type="number"
               pattern="[0-9]{2}"
+              maxlength="2"
             ></b-form-input>
           </b-form-group>
         </b-col>
@@ -37,11 +39,11 @@
           <b-form-group label="Tamaño de su mascota:">
             <b-form-select
               id="inline-form-custom-select-pref"
-              v-model="form.Size"
+              v-model="form.size"
               class="mb-2 mr-sm-2 mb-sm-0"
               required
               :value="null"
-              :options="{ '1': 'S', '2': 'M', '3': 'L', '4': 'XL' }"
+              :options="{ S: 'S', M: 'M', L: 'L', XL: 'XL' }"
             >
               <option slot="first" :value="null">Escoja una opción...</option>
             </b-form-select>
@@ -51,7 +53,7 @@
           <b-form-group label="Foto de su mascota:">
             <b-form-file
               v-model="fileStorage"
-              placeholder="Elija una o varias imagenes..."
+              placeholder="Elija una o varias imágenes..."
               drop-placeholder="Arrastre la imagen acá..."
               accept="image/jpeg, image/png, image/gif"
               browse-text="Explorar"
@@ -67,18 +69,19 @@
           <b-form-group label="Descripción:">
             <b-form-textarea
               id="textarea"
-              v-model="form.PetDescription"
+              v-model="form.petDescription"
               placeholder="Inserte una descripción de su mascota"
               required
               rows="3"
               max-rows="6"
+              maxlength="300"
             >
             </b-form-textarea>
           </b-form-group>
         </b-col>
       </b-form-row>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="submit" variant="primary">Ingresar mascota</b-button>
     </b-form>
   </div>
 </template>
