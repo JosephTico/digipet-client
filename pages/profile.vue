@@ -74,10 +74,19 @@
             </b-card-text>
           </b-card-text>
 
-          <b-button class="mr-2" to="/mainscreen" variant="primary"
+          <b-button class="mr-2" to="/mainscreen" variant="outline-primary"
             >Volver</b-button
           >
-          <b-button to="/schedule" variant="primary">Ver horarios</b-button>
+          <b-button v-if="type == 'student'" to="/schedule" variant="primary"
+            >Ver horarios</b-button
+          >
+
+          <b-button v-if="state" variant="danger" @click="disableAccount"
+            >Deshabilitar cuenta</b-button
+          >
+          <b-button v-else variant="success" @click="enableAccount"
+            >Habilitar cuenta</b-button
+          >
         </b-card>
         <b-card
           v-else
@@ -152,7 +161,25 @@ export default {
     this.desc = data.personalDescription;
     this.ready = true;
   },
-  methods: {}
+  methods: {
+    disableAccount() {
+      var url = "/" + this.type() + "/changestatus";
+      var r = confirm(
+        "¿Está seguro que desea deactivar su cuenta? Podrá activarla de nuevo aquí mismo en cualquier momento"
+      );
+      if (r) {
+        this.$axios.$post(url, { status: false }).then(() => {
+          location("/profile");
+        });
+      }
+    },
+    enableAccount() {
+      var url = "/" + this.type() + "s/changestatus";
+      this.$axios.$post(url, { status: true }).then(() => {
+        location("/profile");
+      });
+    }
+  }
 };
 </script>
 

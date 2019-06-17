@@ -6,12 +6,11 @@ const _09082053 = () => interopDefault(import('../pages/about.vue' /* webpackChu
 const _26ae1bbd = () => interopDefault(import('../pages/borrador.vue' /* webpackChunkName: "pages/borrador" */))
 const _6abb8424 = () => interopDefault(import('../pages/carerequest.vue' /* webpackChunkName: "pages/carerequest" */))
 const _34b89999 = () => interopDefault(import('../pages/caresrecord.vue' /* webpackChunkName: "pages/caresrecord" */))
-const _0dec7793 = () => interopDefault(import('../pages/complain.vue' /* webpackChunkName: "pages/complain" */))
 const _50fd96dc = () => interopDefault(import('../pages/confirmpay.vue' /* webpackChunkName: "pages/confirmpay" */))
+const _26542a43 = () => interopDefault(import('../pages/financialreport.vue' /* webpackChunkName: "pages/financialreport" */))
 const _7b7898e2 = () => interopDefault(import('../pages/mainscreen.vue' /* webpackChunkName: "pages/mainscreen" */))
 const _07cec55e = () => interopDefault(import('../pages/pets.vue' /* webpackChunkName: "pages/pets" */))
 const _1bb4b622 = () => interopDefault(import('../pages/profile.vue' /* webpackChunkName: "pages/profile" */))
-const _632787f4 = () => interopDefault(import('../pages/readreport.vue' /* webpackChunkName: "pages/readreport" */))
 const _38758ade = () => interopDefault(import('../pages/report.vue' /* webpackChunkName: "pages/report" */))
 const _51816241 = () => interopDefault(import('../pages/schedule.vue' /* webpackChunkName: "pages/schedule" */))
 const _2c15e5cd = () => interopDefault(import('../pages/settings.vue' /* webpackChunkName: "pages/settings" */))
@@ -113,13 +112,13 @@ export function createRouter() {
       component: _34b89999,
       name: "caresrecord"
     }, {
-      path: "/complain",
-      component: _0dec7793,
-      name: "complain"
-    }, {
       path: "/confirmpay",
       component: _50fd96dc,
       name: "confirmpay"
+    }, {
+      path: "/financialreport",
+      component: _26542a43,
+      name: "financialreport"
     }, {
       path: "/mainscreen",
       component: _7b7898e2,
@@ -132,10 +131,6 @@ export function createRouter() {
       path: "/profile",
       component: _1bb4b622,
       name: "profile"
-    }, {
-      path: "/readreport",
-      component: _632787f4,
-      name: "readreport"
     }, {
       path: "/report",
       component: _38758ade,

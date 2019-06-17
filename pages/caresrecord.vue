@@ -64,7 +64,9 @@ export default {
       this.$axios
         .get("/clients/" + userId + "/services")
         .then(response => {
-          this.cares = response.data;
+          this.cares = response.data.filter(item => {
+            return item.rating > 0;
+          });
           this.caresLoading = false;
         })
         .catch(() => {

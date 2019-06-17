@@ -1,6 +1,42 @@
 <template>
   <b-container>
-    <b-alert variant="success" dismissible success alert :show="showAlert"
+    <b-modal
+      id="modal-complaint"
+      ref="modalComplaint"
+      title="Envíe una denuncia"
+      centered
+      cancel-variant="outline-secondary"
+      cancel-title="Cancelar"
+      ok-variant="danger"
+      ok-title="Enviar denuncia"
+      @show="resetModal"
+      @hidden="resetModal"
+      @ok="handleOk"
+    >
+      <form ref="form" @submit.stop.prevent="handleSubmit">
+        <b-form-group
+          :state="complaintState"
+          label="¿Ocurrió algo con este cuidado? Por favor hágannos saber todos los detalles posibles."
+          label-for="name-input"
+          invalid-feedback="Campo requerido"
+        >
+          <b-form-textarea
+            id="complaint-input"
+            v-model="complaint"
+            :state="complaintState"
+            rows="3"
+            maxlength="300"
+            required
+          ></b-form-textarea>
+        </b-form-group>
+      </form>
+    </b-modal>
+
+    <b-alert variant="success" dismissible :show="showAlert"
+      >El cuidador se ha calificado correctamente.</b-alert
+    >
+
+    <b-alert variant="info" dismissible :show="showComplaintAlert"
       >El cuidador se ha calificado correctamente.</b-alert
     >
     <div v-if="ready">
@@ -22,7 +58,10 @@
             <b-button to="/mainscreen" variant="outline-primary"
               >Atrás</b-button
             >
-            <b-button to="/complain" variant="danger"
+            <b-button
+              v-if="canReview"
+              v-b-modal.modal-complaint
+              variant="danger"
               >Denunciar este cuidado</b-button
             >
           </div>
@@ -91,7 +130,10 @@ export default {
       ready: false,
       alreadyReviewed: false,
       rating: 0,
-      showAlert: false
+      showAlert: false,
+      showComplaintAlert: false,
+      complaintState: null,
+      complaint: ""
     };
   },
 
@@ -125,6 +167,42 @@ export default {
     this.getData();
   },
   methods: {
+    checkFormValidity() {
+      const valid = this.$refs.form.checkValidity();
+      this.complaintState = valid ? "valid" : "invalid";
+      return valid;
+    },
+    resetModal() {
+      this.name = "";
+      this.complaintState = null;
+    },
+    handleOk(bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      // Trigger submit handler
+      this.handleSubmit();
+    },
+    handleSubmit() {
+      // Exit when the form isn't valid
+      if (!this.checkFormValidity()) {
+        return;
+      }
+      // Push the name to submitted names
+      this.$axios
+        .post("/services/" + this.$route.params.id + "/complaint", {
+          description: this.complaint
+        })
+        .then(() => {
+          this.showComplaintAlert = true;
+        })
+        .catch(() => {
+          alert("Ya ha enviado una denuncia para este cuidado.");
+        });
+      // Hide the modal manually
+      this.$nextTick(() => {
+        this.$refs.modalComplaint.hide();
+      });
+    },
     setRating: function() {
       this.alreadyReviewed = true;
       this.$axios

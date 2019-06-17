@@ -62,7 +62,7 @@
                 to="/caresrecord"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
-                >Cuidados Anteriores</b-button
+                >Cuidados anteriores</b-button
               >
             </b-row>
             <b-row v-if="type == 'student'" align-h="center" class="mb-3">
@@ -103,6 +103,14 @@
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
                 >Ajustes</b-button
+              >
+            </b-row>
+             <b-row v-if="type == 'admin'" align-h="center" class="mb-3">
+              <b-button
+                to="/settings"
+                variant="primary"
+                class="btn btn-primary btn-lg btn-block"
+                >Generar reporte financiero</b-button
               >
             </b-row>
           </b-container>
@@ -150,7 +158,7 @@
           class="border rounded mb-5 mt-3"
           style="background-color: #E8E9E8"
         >
-          <h2 class="title mb-2 mt-2 ml-2 ">
+          <h2 class="title mb-2 mt-2 ml-2" style="width: 100%;clear:both;">
             Pendientes de calificar
           </h2>
           <b-card
@@ -175,7 +183,7 @@
             :cid="care.idWalkService"
             class="mb-1 mx-auto"
           ></DynamicCareCard>
-          <p v-if="!caresLoading && caresPending.length == 0">
+          <p v-if="!caresLoading && caresPending.length == 0" class="px-3">
             No hay servicios.
           </p>
         </b-row>
@@ -225,7 +233,7 @@ export default {
             return !item.reportDescription;
           });
           this.caresPending = response.data.filter(item => {
-            return item.reportDescription;
+            return item.reportDescription && item.rating == 0;
           });
           this.caresLoading = false;
         })
