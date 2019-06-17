@@ -283,10 +283,7 @@ export default {
           reportDescription: this.report
         })
         .then(() => {
-          this.$router.replace({
-            name: "/care/" + this.$route.params.id,
-            params: { sent: true }
-          });
+          this.$router.go();
         })
         .catch(() => {
           alert("Ha ocurrido un error. Por favor inténtelo de nuevo.");

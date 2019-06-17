@@ -1,6 +1,10 @@
 <template>
   <div center-block>
-    <b-row><h2 class="ml-1 ">Horarios de Cuidado</h2></b-row>
+    <h2 class="ml-1 ">Horarios de disponibilidad</h2>
+    <p class="lead">
+      En esta sección puede configurar su disponibilidad para trabajar
+      dependiendo de la fecha.
+    </p>
     <b-card class="mx-auto">
       <b-row><h4 class="ml-2 ">Escoja la fecha:</h4></b-row>
       <b-row>
@@ -20,7 +24,7 @@
         >Borrar horario</b-button
       >
     </b-card>
-    <b-button v-b-toggle="'collapse-2'" class="m-1 mt-2 "
+    <b-button v-b-toggle="'collapse-2'" variant="success" class="m-1 mt-2 "
       >Agregar nuevo horario</b-button
     >
     <!-- Element to collapse -->
@@ -59,15 +63,16 @@
           </b-col>
         </b-row>
         <b-row>
-          <b-button class=" mt-2 ml-2" variant="success" href="#"
-            >Añadir horario</b-button
+          <b-button class="mt-2 ml-2" variant="primary" href="#"
+            >Confirmar nuevo horario</b-button
           >
         </b-row>
       </b-card>
     </b-collapse>
-    <div class="mt-2">
-      <b-button variant="primary" to="/mainscreen">Cancelar</b-button>
-      <b-button variant="success" to="#">Confirmar</b-button>
+    <div class="mt-2 ml-2">
+      <b-button variant="outline-secondary" to="/mainscreen"
+        >Volver atrás</b-button
+      >
     </div>
   </div>
 </template>

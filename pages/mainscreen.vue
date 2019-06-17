@@ -9,7 +9,7 @@
 
     <b-row>
       <b-col>
-        <b-row class="border rounded mr-2 " style="background-color: #E8E9E8">
+        <b-row class="border rounded mr-2 " style="background-color: #FBF8DE">
           <b-img
             v-if="ready && avatar"
             thumbnail
@@ -121,7 +121,7 @@
       <b-col>
         <b-row
           class="border rounded mb-2 pb-2"
-          style="background-color: #E8E9E8"
+          style="background-color: #FBF8DE"
         >
           <b-container>
             <div>
@@ -159,7 +159,7 @@
         </b-row>
         <b-row
           class="border rounded mb-5 mt-3 pb-2"
-          style="background-color: #E8E9E8"
+          style="background-color: #FBF8DE"
         >
           <h2 class="title mb-2 mt-2 ml-2" style="width: 100%;clear:both;">
             <span v-if="type == 'student'">Pendientes de reportar</span>

@@ -1,7 +1,7 @@
 <template>
   <div>
-      <h2 class="title mb-4">Menú de opciones</h2>
-    
+    <h2 class="title mb-4">Menú de opciones</h2>
+
     <b-alert v-show="errorString" show variant="danger">
       {{ errorString }}
     </b-alert>
@@ -11,9 +11,13 @@
         <b-button v-b-modal.modal-1 variant="primary" style="width:100%"
           >Modificar precio</b-button
         >
-        <b-modal id="modal-1" title="Modificar precio de cuidos">
+        <b-modal
+          id="modal-1"
+          title="Modificar precio de cuidos (por defecto = 30)"
+          @ok="sendPrice"
+        >
           <p class="">Inserte el nuevo precio:</p>
-          <b-form @submit="onSubmit">
+          <b-form @submit.stop.prevent="sendPrice">
             <b-form-input
               id="input-1"
               v-model="form.price"
@@ -67,10 +71,8 @@
           >Ingresar nueva provincia</b-button
         >
         <b-modal id="modal-4" title="Nueva provincia">
-          
-          
           <b-form @submit="onSubmit">
-              <p class="">Escoja el pais</p>
+            <p class="">Escoja el pais</p>
             <b-form-select
               v-model="form.idCountry"
               :options="country"
@@ -93,8 +95,8 @@
         >
         <b-modal id="modal-5" title="Eliminar provincia existente">
           <b-form @submit="onSubmit">
-              <p class="">Escoja el pais</p>
-              <b-form-select
+            <p class="">Escoja el pais</p>
+            <b-form-select
               v-model="form.idCountry"
               :options="country"
               required
@@ -110,16 +112,14 @@
       </b-col>
     </b-row>
 
-
-     <b-row class="mb-2">
+    <b-row class="mb-2">
       <b-col>
         <b-button v-b-modal.modal-6 variant="primary" style="width:100%"
           >Ingresar nuevo cantón</b-button
         >
         <b-modal id="modal-6" title="Nuev cantón">
-          
           <b-form @submit="onSubmit">
-              <p class="">Escoja el pais</p>
+            <p class="">Escoja el pais</p>
             <b-form-select
               v-model="form.idCountry"
               :options="country"
@@ -148,8 +148,8 @@
         >
         <b-modal id="modal-7" title="Eliminar provincia existente">
           <b-form @submit="onSubmit">
-              <p class="">Escoja el pais</p>
-              <b-form-select
+            <p class="">Escoja el pais</p>
+            <b-form-select
               v-model="form.idCountry"
               :options="country"
               required
@@ -171,17 +171,14 @@
       </b-col>
     </b-row>
 
-
- <b-row class="mb-2">
+    <b-row class="mb-2">
       <b-col>
         <b-button v-b-modal.modal-8 variant="primary" style="width:100%"
           >Ingresar nueva universidad</b-button
         >
         <b-modal id="modal-8" title="Nueva universidad">
-          
-          
           <b-form @submit="onSubmit">
-              <p class="">Escoja el pais</p>
+            <p class="">Escoja el pais</p>
             <b-form-select
               v-model="form.idCountry"
               :options="country"
@@ -204,8 +201,8 @@
         >
         <b-modal id="modal-9" title="Eliminar universidad existente">
           <b-form @submit="onSubmit">
-              <p class="">Escoja el pais</p>
-              <b-form-select
+            <p class="">Escoja el pais</p>
+            <b-form-select
               v-model="form.idCountry"
               :options="country"
               required
@@ -222,8 +219,8 @@
     </b-row>
 
     <b-button to="/mainscreen" variant="outline-primary" style="width:100%"
-          >Atrás</b-button>
-
+      >Atrás</b-button
+    >
   </div>
 </template>
 
@@ -238,6 +235,14 @@ export default {
       errorString: "",
       loading: false
     };
+  },
+  methods: {
+    sendPrice(evnt) {
+      evnt.preventDefault();
+      this.$axios.$post("/price", {
+        price: this.form.price
+      });
+    }
   }
 };
 </script>

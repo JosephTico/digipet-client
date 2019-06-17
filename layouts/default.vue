@@ -185,5 +185,6 @@ html {
 
 .navbar {
   border-bottom: 1px solid whitesmoke;
+  background: #FBF8DE;
 }
 </style>
