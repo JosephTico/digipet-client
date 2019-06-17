@@ -299,10 +299,7 @@ export default {
           this.$cookies.set("user.type", response.type, "4h");
           this.$cookies.set("user.id", response.id, "4h");
           this.$nuxt.$loading.finish();
-          this.$router.push({
-            path: "/signupconfirm"
-          });
-          this.$forceUpdate();
+          window.location("/signupconfirm");
         })
         .catch(error => {
           this.errorString = this.errorParser(error);

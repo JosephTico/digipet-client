@@ -4,7 +4,7 @@
       <b-col>
         <b-row class="border rounded mr-2 " style="background-color: #E8E9E8">
           <b-img
-            v-if="ready"
+            v-if="ready && avatar"
             thumbnail
             mx-auto
             :src="avatar"
