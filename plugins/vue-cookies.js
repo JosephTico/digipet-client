@@ -20,11 +20,9 @@ Vue.mixin({
       return this.$axios
         .get(url)
         .then(response => {
-          data = {
-            avatar: response.data.photo,
-            name: response.data.name,
-            ready: true
-          };
+          data = response.data;
+          data["avatar"] = response.data.photo;
+          data["ready"] = true;
           return data;
         })
         .catch(error => {

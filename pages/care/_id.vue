@@ -37,6 +37,10 @@
 <script>
 import CareCard from "~/components/CareCard.vue";
 export default {
+  validate({ params }) {
+    // Must be a number
+    return /^\d+$/.test(params.id);
+  },
   middleware: "auth",
   components: { CareCard },
   data() {
@@ -50,6 +54,10 @@ export default {
   },
 
   methods: {
+    getData() {
+      let id = this.$route.params.id;
+      this.$axios.get("/services/" + id + "/");
+    },
     onSubmit(event) {
       event.preventDefault();
       alert(JSON.stringify(this.form));

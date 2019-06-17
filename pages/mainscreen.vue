@@ -54,7 +54,7 @@
                 to="/carerequest"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
-                >Solicitar cuido</b-button
+                >Solicitar cuidado</b-button
               >
             </b-row>
             <b-row v-if="type != 'admin'" align-h="center" class="mb-3">
@@ -83,7 +83,7 @@
             </b-row>
             <b-row v-if="type != 'admin'" align-h="center" class="mb-3">
               <b-button
-                to="/viewprofile"
+                to="/profile"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
                 >Ver perfil</b-button
@@ -91,17 +91,28 @@
             </b-row>
             <b-row v-if="type == 'admin'" align-h="center" class="mb-3">
               <b-button
-                to="/"
+                to="/studentslist"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
                 >Lista de cuidadores</b-button
+              >
+            </b-row>
+            <b-row v-if="type == 'admin'" align-h="center" class="mb-3">
+              <b-button
+                to="/settings"
+                variant="primary"
+                class="btn btn-primary btn-lg btn-block"
+                >Ajustes</b-button
               >
             </b-row>
           </b-container>
         </b-row>
       </b-col>
       <b-col>
-        <b-row class="border rounded mb-2 pb-2" style="background-color: #E8E9E8">
+        <b-row
+          class="border rounded mb-2 pb-2"
+          style="background-color: #E8E9E8"
+        >
           <b-container>
             <div>
               <h2 class="title mb-2 mt-2 ">
@@ -128,7 +139,7 @@
                 :pet="care.idPet"
                 class="mb-1"
               ></DynamicCareCard>
-
+              <p v-if="caresDidntLoad">No hay servicios.</p>
             </div>
           </b-container>
         </b-row>
@@ -197,14 +208,13 @@ export default {
       ready: false,
       cares: [],
       tasks: [],
-      caresLoading: true
+      caresLoading: true,
+      caresDidntLoad: false
     };
   },
   computed: {
     type() {
-      if (this.$route.query.type == "student") return "student";
-      if (this.$route.query.type == "admin") return "admin";
-      return "client";
+      return this.$cookies.get("user.type").toLowerCase();
     }
   },
   async created() {
@@ -218,10 +228,16 @@ export default {
   methods: {
     loadCares() {
       let userId = this.$cookies.get("user.id");
-      this.$axios.get("/clients/" + userId + "/services").then(response => {
-        this.cares = response.data;
-        this.caresLoading = false;
-      });
+      this.$axios
+        .get("/clients/" + userId + "/services")
+        .then(response => {
+          this.cares = response.data;
+          this.caresLoading = false;
+        })
+        .catch(() => {
+          this.caresLoading = false;
+          this.caresDidntLoad = true;
+        });
     },
     loadTasks() {}
   }

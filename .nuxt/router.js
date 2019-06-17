@@ -2,15 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+const _09082053 = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
 const _26ae1bbd = () => interopDefault(import('../pages/borrador.vue' /* webpackChunkName: "pages/borrador" */))
-const _2cd0d28a = () => interopDefault(import('../pages/care.vue' /* webpackChunkName: "pages/care" */))
-const _22edd7e5 = () => interopDefault(import('../pages/caredata.vue' /* webpackChunkName: "pages/caredata" */))
 const _6abb8424 = () => interopDefault(import('../pages/carerequest.vue' /* webpackChunkName: "pages/carerequest" */))
 const _34b89999 = () => interopDefault(import('../pages/caresrecord.vue' /* webpackChunkName: "pages/caresrecord" */))
 const _0dec7793 = () => interopDefault(import('../pages/complain.vue' /* webpackChunkName: "pages/complain" */))
 const _50fd96dc = () => interopDefault(import('../pages/confirmpay.vue' /* webpackChunkName: "pages/confirmpay" */))
 const _7b7898e2 = () => interopDefault(import('../pages/mainscreen.vue' /* webpackChunkName: "pages/mainscreen" */))
 const _07cec55e = () => interopDefault(import('../pages/pets.vue' /* webpackChunkName: "pages/pets" */))
+const _1bb4b622 = () => interopDefault(import('../pages/profile.vue' /* webpackChunkName: "pages/profile" */))
 const _632787f4 = () => interopDefault(import('../pages/readreport.vue' /* webpackChunkName: "pages/readreport" */))
 const _38758ade = () => interopDefault(import('../pages/report.vue' /* webpackChunkName: "pages/report" */))
 const _51816241 = () => interopDefault(import('../pages/schedule.vue' /* webpackChunkName: "pages/schedule" */))
@@ -19,7 +19,7 @@ const _1e51c508 = () => interopDefault(import('../pages/signpet.vue' /* webpackC
 const _b233d67c = () => interopDefault(import('../pages/signup.vue' /* webpackChunkName: "pages/signup" */))
 const _34e5f3ee = () => interopDefault(import('../pages/signupconfirm.vue' /* webpackChunkName: "pages/signupconfirm" */))
 const _868d8d40 = () => interopDefault(import('../pages/studentslist.vue' /* webpackChunkName: "pages/studentslist" */))
-const _58d37a2a = () => interopDefault(import('../pages/viewprofile.vue' /* webpackChunkName: "pages/viewprofile" */))
+const _24e80ee6 = () => interopDefault(import('../pages/care/_id.vue' /* webpackChunkName: "pages/care/_id" */))
 const _28bffb18 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
@@ -97,17 +97,13 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
+      path: "/about",
+      component: _09082053,
+      name: "about"
+    }, {
       path: "/borrador",
       component: _26ae1bbd,
       name: "borrador"
-    }, {
-      path: "/care",
-      component: _2cd0d28a,
-      name: "care"
-    }, {
-      path: "/caredata",
-      component: _22edd7e5,
-      name: "caredata"
     }, {
       path: "/carerequest",
       component: _6abb8424,
@@ -132,6 +128,10 @@ export function createRouter() {
       path: "/pets",
       component: _07cec55e,
       name: "pets"
+    }, {
+      path: "/profile",
+      component: _1bb4b622,
+      name: "profile"
     }, {
       path: "/readreport",
       component: _632787f4,
@@ -165,9 +165,9 @@ export function createRouter() {
       component: _868d8d40,
       name: "studentslist"
     }, {
-      path: "/viewprofile",
-      component: _58d37a2a,
-      name: "viewprofile"
+      path: "/care/:id?",
+      component: _24e80ee6,
+      name: "care-id"
     }, {
       path: "/",
       component: _28bffb18,
