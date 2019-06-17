@@ -105,7 +105,7 @@
                 >Ajustes</b-button
               >
             </b-row>
-             <b-row v-if="type == 'admin'" align-h="center" class="mb-3">
+            <b-row v-if="type == 'admin'" align-h="center" class="mb-3">
               <b-button
                 to="/settings"
                 variant="primary"

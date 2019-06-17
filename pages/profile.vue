@@ -163,7 +163,7 @@ export default {
   },
   methods: {
     disableAccount() {
-      var url = "/" + this.type() + "s/changestatus";
+      var url = "/" + this.type + "s/changestatus";
       var r = confirm(
         "¿Está seguro que desea deactivar su cuenta? Podrá activarla de nuevo aquí mismo en cualquier momento"
       );
@@ -174,7 +174,7 @@ export default {
       }
     },
     enableAccount() {
-      var url = "/" + this.type() + "s/changestatus";
+      var url = "/" + this.type + "s/changestatus";
       this.$axios.$post(url, { status: true }).then(() => {
         location("/profile");
       });
