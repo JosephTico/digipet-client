@@ -6,6 +6,7 @@ const _09082053 = () => interopDefault(import('../pages/about.vue' /* webpackChu
 const _26ae1bbd = () => interopDefault(import('../pages/borrador.vue' /* webpackChunkName: "pages/borrador" */))
 const _6abb8424 = () => interopDefault(import('../pages/carerequest.vue' /* webpackChunkName: "pages/carerequest" */))
 const _34b89999 = () => interopDefault(import('../pages/caresrecord.vue' /* webpackChunkName: "pages/caresrecord" */))
+const _8854485c = () => interopDefault(import('../pages/complaints.vue' /* webpackChunkName: "pages/complaints" */))
 const _50fd96dc = () => interopDefault(import('../pages/confirmpay.vue' /* webpackChunkName: "pages/confirmpay" */))
 const _26542a43 = () => interopDefault(import('../pages/financialreport.vue' /* webpackChunkName: "pages/financialreport" */))
 const _7b7898e2 = () => interopDefault(import('../pages/mainscreen.vue' /* webpackChunkName: "pages/mainscreen" */))
@@ -111,6 +112,10 @@ export function createRouter() {
       path: "/caresrecord",
       component: _34b89999,
       name: "caresrecord"
+    }, {
+      path: "/complaints",
+      component: _8854485c,
+      name: "complaints"
     }, {
       path: "/confirmpay",
       component: _50fd96dc,

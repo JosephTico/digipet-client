@@ -33,13 +33,13 @@ export default {
     datetime: { type: String, required: true },
     pet: { type: Number, required: true },
     caregiver: { type: Number, required: true },
-    owner: { type: Number, required: false },
     cid: { type: Number, required: true }
   },
   data() {
     return {
       hour: "",
       data: "",
+      owner: 0,
       petname: "Cargando...",
       petimg:
         "https://cdn.dribbble.com/users/238583/screenshots/3630870/lagif-grande.gif",

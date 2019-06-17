@@ -1,40 +1,32 @@
 <template>
   <div>
     <h2 class="title mb-4">
-      Reportes financieros
+      Denuncias
       <b-button to="/mainscreen" variant="outline-primary">Atrás</b-button>
     </h2>
+
     <b-row>
-      <b-col>
-        <b-form-group label="Fecha inicio:">
-          <datetime
-            v-model="startDate"
-            input-class="form-control"
-            required
-            value-zone="local"
-            zone="local"
-            @input="changeDates"
-          ></datetime>
-        </b-form-group>
-      </b-col>
-      <b-col>
-        <b-form-group label="Fecha final:">
-          <datetime
-            v-model="endDate"
-            input-class="form-control"
-            required
-            value-zone="local"
-            zone="local"
-            :min-datetime="startDate"
-            @input="changeDates"
-          ></datetime>
+      <b-col md="6" class="my-1">
+        <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
+          <b-input-group>
+            <b-form-input
+              v-model="filter"
+              placeholder="Type to Search"
+            ></b-form-input>
+            <b-input-group-append>
+              <b-button :disabled="!filter" @click="filter = ''"
+                >Clear</b-button
+              >
+            </b-input-group-append>
+          </b-input-group>
         </b-form-group>
       </b-col>
     </b-row>
+
     <b-table
       striped
       hover
-      :items="reports"
+      :items="caregiver"
       :filter="filter"
       primary-key="idCaregiver"
       @filtered="onFiltered"
@@ -56,22 +48,14 @@
 </template>
 
 <script>
-import { Datetime } from "vue-datetime";
-import "vue-datetime/dist/vue-datetime.css";
-
 export default {
   middleware: "auth",
-  components: {
-    datetime: Datetime
-  },
 
   data() {
     return {
       loading: false,
       filter: null,
-      startDate: "",
-      endDate: "",
-      reports: [],
+      caregiver: [],
       infoModal: {
         id: "info-modal",
         title: "",
@@ -139,35 +123,21 @@ export default {
     }
   },
   created() {
-    this.updateReports();
+    this.loading = true;
+    this.$axios
+      .get("/administrators/complaints")
+      .then(response => {
+        this.caregiver = response.data;
+        this.loading = false;
+      })
+      .catch(() => {
+        alert(
+          "Ha ocurrido un error al obtener los cuidadores. Por favor inténtelo de nuevo más tarde"
+        );
+        this.loading = false;
+      });
   },
   methods: {
-    updateReports() {
-      this.loading = true;
-      this.$axios
-        .post("/administrators/report", {
-          startDate: this.startDate,
-          endDate: this.endDate
-        })
-        .then(response => {
-          this.reports = response.data;
-          this.loading = false;
-        })
-        .catch(() => {
-          alert(
-            "Ha ocurrido un error al obtener los reportes. Por favor inténtelo de nuevo más tarde"
-          );
-          this.loading = false;
-        });
-    },
-    changeDates() {
-      if (
-        new Date(this.startDate).getTime() > new Date(this.endDate).getTime()
-      ) {
-        this.endDate = "";
-      }
-      this.updateReports();
-    },
     status(number) {
       if (number == 0) {
         return "Desactivado";

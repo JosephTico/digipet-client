@@ -101,6 +101,14 @@
             </b-row>
             <b-row v-if="type == 'admin'" align-h="center" class="mb-3">
               <b-button
+                to="/complaints"
+                variant="primary"
+                class="btn btn-primary btn-lg btn-block"
+                >Lista de denuncias</b-button
+              >
+            </b-row>
+            <b-row v-if="type == 'admin'" align-h="center" class="mb-3">
+              <b-button
                 to="/settings"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
@@ -118,7 +126,7 @@
           </b-container>
         </b-row>
       </b-col>
-      <b-col>
+      <b-col v-if="type != 'admin'">
         <b-row
           class="border rounded mb-2 pb-2"
           style="background-color: #FBF8DE"
