@@ -77,6 +77,8 @@ import { Datetime } from "vue-datetime";
 import "vue-datetime/dist/vue-datetime.css";
 
 export default {
+  middleware: "auth",
+
   components: {
     datetime: Datetime
   },

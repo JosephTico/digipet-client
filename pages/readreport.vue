@@ -1,5 +1,8 @@
 <template>
   <b-container>
+    <b-alert variant="success" dismissible success alert :show="showAlert"
+      >El cuidador se ha calificado correctamente.</b-alert
+    >
     <b-row>
       <b-col>
         <b-row>
@@ -52,8 +55,10 @@
       </b-col>
       <b-col>
         <b-button href="/mainscreen" variant="primary">Atrás</b-button>
+        <b-button href="/mainscreen" variant="danger">Reportar</b-button>
       </b-col>
     </b-row>
+
     <b-row>
       <h2 class="title mb-3 mt-3 disabled ">
         Calificar servicio:
@@ -95,13 +100,15 @@ export default {
       },
       fileStorage: null,
       errorString: "",
-      alreadyReviewed: false
+      alreadyReviewed: false,
+      showAlert: false
     };
   },
 
   methods: {
     setRating: function() {
       this.alreadyReviewed = true;
+      this.showAlert = true;
     },
     onSubmit(event) {
       event.preventDefault();

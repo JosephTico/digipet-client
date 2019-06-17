@@ -26,6 +26,8 @@
 
 <script>
 export default {
+  middleware: "auth",
+
   transition: "slide-right",
   async asyncData({ $axios }) {
     var users = await $axios.$get("https://reqres.in/api/users");
