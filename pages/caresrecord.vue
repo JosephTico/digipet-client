@@ -54,18 +54,26 @@ export default {
       caresDidntLoad: false
     };
   },
+  computed: {
+    type() {
+      return this.$cookies.get("user.type").toLowerCase();
+    }
+  },
   async created() {
     this.loadCares();
   },
-
   methods: {
     loadCares() {
       let userId = this.$cookies.get("user.id");
       this.$axios
-        .get("/clients/" + userId + "/services")
+        .get("/" + this.type + "s/" + userId + "/services")
         .then(response => {
           this.cares = response.data.filter(item => {
-            return item.rating > 0;
+            if (this.type == "client") {
+              return item.rating > 0;
+            } else {
+              return item.reportDescription;
+            }
           });
           this.caresLoading = false;
         })

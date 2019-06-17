@@ -133,6 +133,11 @@ export default {
     type() {
       return this.$cookies.get("user.type").toLowerCase();
     },
+    id() {
+      if (this.type == "client") return this.idPetOwner;
+      else if (this.type == "student") return this.idStudent;
+      else return this.idAdmin;
+    },
     tipoLabel() {
       if (this.$cookies.get("user.type").toLowerCase() == "student")
         return "Cuidador";
@@ -159,25 +164,40 @@ export default {
     this.rating = data.walksRating;
     this.services = data.walksQuantity;
     this.desc = data.personalDescription;
+    this.idPetOwner = data.idPetOwner;
+    this.idAdmin = data.idAdmin;
+    this.idStudent = data.idCaregiver;
     this.ready = true;
   },
   methods: {
     disableAccount() {
-      var url = "/" + this.type + "s/changestatus";
+      var url = "/" + this.type + "s/" + this.id + "/changestatus";
       var r = confirm(
         "¿Está seguro que desea deactivar su cuenta? Podrá activarla de nuevo aquí mismo en cualquier momento"
       );
       if (r) {
-        this.$axios.$post(url, { status: false }).then(() => {
-          location("/profile");
-        });
+        if (this.type == "student") {
+          this.$axios.$post(url, { status: 0 }).then(() => {
+            location.href = "/profile";
+          });
+        } else {
+          this.$axios.$post(url, { status: true }).then(() => {
+            location.href = "/profile";
+          });
+        }
       }
     },
     enableAccount() {
-      var url = "/" + this.type + "s/changestatus";
-      this.$axios.$post(url, { status: true }).then(() => {
-        location("/profile");
-      });
+      var url = "/" + this.type + "s/" + this.id + "/changestatus";
+      if (this.type == "student") {
+        this.$axios.$post(url, { status: 1 }).then(() => {
+          location.href = "/profile";
+        });
+      } else {
+        this.$axios.$post(url, { status: true }).then(() => {
+          location.href = "/profile";
+        });
+      }
     }
   }
 };

@@ -28,12 +28,12 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-button t="/mainscreen" variant="primary" style="width:100%"
+        <b-button to="/mainscreen" variant="outline-primary" style="width:100%"
           >Cancelar</b-button
         >
       </b-col>
       <b-col>
-        <b-button t="/mainscreen" variant="primary" style="width:100%"
+        <b-button variant="primary" style="width:100%"
           >Generar reporte</b-button
         >
       </b-col>

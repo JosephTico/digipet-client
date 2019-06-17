@@ -37,20 +37,30 @@
                 ></div>
               </div>
 
-              <h1 v-if="ready" class="title mb-3 " align="center">
+              <h1
+                v-if="ready"
+                class="title mb-3"
+                align="center"
+                style="width: 100%;"
+              >
                 Hola {{ name }}
               </h1>
+              <p v-if="!status" class="text-center" style="width:100%">
+                (cuenta inactiva)
+              </p>
             </b-row>
             <b-row v-if="type == 'student'" align-h="center" class="mb-3">
               <b-button
                 to="/schedule"
                 variant="primary"
+                :disabled="!status"
                 class="btn btn-primary btn-lg btn-block"
-                >Mis Horarios</b-button
+                >Mis horarios</b-button
               >
             </b-row>
             <b-row v-if="type == 'client'" align-h="center" class="mb-3">
               <b-button
+                :disabled="!status"
                 to="/carerequest"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
@@ -63,14 +73,6 @@
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
                 >Cuidados anteriores</b-button
-              >
-            </b-row>
-            <b-row v-if="type == 'student'" align-h="center" class="mb-3">
-              <b-button
-                to="/schedule"
-                variant="primary"
-                class="btn btn-primary btn-lg btn-block"
-                >Perfil y Opciónes</b-button
               >
             </b-row>
             <b-row v-if="type == 'client'" align-h="center" class="mb-3">
@@ -107,7 +109,7 @@
             </b-row>
             <b-row v-if="type == 'admin'" align-h="center" class="mb-3">
               <b-button
-                to="/settings"
+                to="/financialreport"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
                 >Generar reporte financiero</b-button
@@ -124,7 +126,8 @@
           <b-container>
             <div>
               <h2 class="title mb-2 mt-2 ">
-                Próximos cuidados
+                <span v-if="type == 'student'">Mis cuidados asignados</span>
+                <span v-else>Próximos cuidados</span>
               </h2>
               <b-card
                 v-if="caresLoading"
@@ -155,11 +158,12 @@
           </b-container>
         </b-row>
         <b-row
-          class="border rounded mb-5 mt-3"
+          class="border rounded mb-5 mt-3 pb-2"
           style="background-color: #E8E9E8"
         >
           <h2 class="title mb-2 mt-2 ml-2" style="width: 100%;clear:both;">
-            Pendientes de calificar
+            <span v-if="type == 'student'">Pendientes de reportar</span>
+            <span v-else>Pendientes de calificar</span>
           </h2>
           <b-card
             v-if="caresLoading"
@@ -206,6 +210,7 @@ export default {
       caresFuture: [],
       caresPending: [],
       tasks: [],
+      status: true,
       caresLoading: true,
       caresDidntLoad: false
     };
@@ -220,6 +225,7 @@ export default {
     this.loadTasks();
     var data = await this.fetchProfile();
     this.avatar = data.avatar;
+    this.status = data.status;
     this.name = data.name;
     this.ready = true;
   },
@@ -227,13 +233,27 @@ export default {
     loadCares() {
       let userId = this.$cookies.get("user.id");
       this.$axios
-        .get("/clients/" + userId + "/services")
+        .get("/" + this.type + "s/" + userId + "/services")
         .then(response => {
           this.caresFuture = response.data.filter(item => {
-            return !item.reportDescription;
+            if (this.type == "client") {
+              return !item.reportDescription;
+            } else {
+              return (
+                Date.parse(item.endTime) - Date.parse(new Date()) > 0 &&
+                !item.reportDescription
+              );
+            }
           });
           this.caresPending = response.data.filter(item => {
-            return item.reportDescription && item.rating == 0;
+            if (this.type == "client") {
+              return item.reportDescription && item.rating == 0;
+            } else {
+              return (
+                Date.parse(item.endTime) - Date.parse(new Date()) <= 0 &&
+                !item.reportDescription
+              );
+            }
           });
           this.caresLoading = false;
         })

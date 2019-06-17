@@ -17,13 +17,45 @@
         <b-form-group
           :state="complaintState"
           label="¿Ocurrió algo con este cuidado? Por favor hágannos saber todos los detalles posibles."
-          label-for="name-input"
+          label-for="complaint-input"
           invalid-feedback="Campo requerido"
         >
           <b-form-textarea
             id="complaint-input"
             v-model="complaint"
             :state="complaintState"
+            rows="3"
+            maxlength="300"
+            required
+          ></b-form-textarea>
+        </b-form-group>
+      </form>
+    </b-modal>
+
+    <b-modal
+      id="modal-report"
+      ref="modalReport"
+      title="Envíe la tarjeta de reporte"
+      centered
+      cancel-variant="outline-secondary"
+      cancel-title="Cancelar"
+      ok-variant="success"
+      ok-title="Enviar reporte"
+      @show="resetModal"
+      @hidden="resetModal"
+      @ok="handleOkReport"
+    >
+      <form ref="form" @submit.stop.prevent="handleSubmitReport">
+        <b-form-group
+          :state="complaintState"
+          label="Por favor complete la siguiente tarjeta de reporte con cualquier observación relacionada al cuidado."
+          label-for="report-input"
+          invalid-feedback="Campo requerido"
+        >
+          <b-form-textarea
+            id="report-input"
+            v-model="report"
+            :state="reportState"
             rows="3"
             maxlength="300"
             required
@@ -43,14 +75,16 @@
       <b-row>
         <b-col cols="8">
           <b-row>
-            <CareCard
+            <BigCareCard
               :carename="data.studentName"
               :careimg="getPersonPhoto"
+              :ownername="data.clientName"
+              :ownerimg="data.clientPhoto"
               :petname="data.petName"
               :petimg="getPetPhoto"
               :date="data.startTime | moment('LL')"
               :hour="data.startTime | moment('h:mm a')"
-            ></CareCard>
+            ></BigCareCard>
           </b-row>
         </b-col>
         <b-col cols="4">
@@ -68,21 +102,35 @@
         </b-col>
       </b-row>
 
-      <b-row v-if="canReview">
+      <div>
+        <h2 class="title mb-3 mt-3 disabled ">
+          Reporte del cuidador:
+        </h2>
+
+        <p v-if="!data.reportDescription" class="font-italic">
+          Pendiente...
+        </p>
+        <p v-else>{{ data.reportDescription }}</p>
+        <b-button v-if="canReport" v-b-modal.modal-report variant="success"
+          >Completar la tarjeta de reporte</b-button
+        >
+      </div>
+
+      <div v-if="canReview">
         <h2 class="title mb-3 mt-3 disabled ">
           Calificar servicio:
-          <StarRating
-            v-model="rating"
-            :read-only="alreadyReviewed"
-            @rating-selected="setRating"
-          ></StarRating>
         </h2>
-      </b-row>
-      <b-row>
+        <StarRating
+          v-model="rating"
+          :read-only="alreadyReviewed"
+          @rating-selected="setRating"
+        ></StarRating>
+      </div>
+      <div>
         <h2 class="title mb-3 mt-3 ">
           Detalles de cuidado:
         </h2>
-      </b-row>
+      </div>
 
       <div>
         <b-card-text>
@@ -116,14 +164,14 @@
 
 <script>
 import StarRating from "vue-star-rating";
-import CareCard from "~/components/CareCard.vue";
+import BigCareCard from "~/components/BigCareCard.vue";
 export default {
   validate({ params }) {
     // Must be a number
     return /^\d+$/.test(params.id);
   },
   middleware: "auth",
-  components: { CareCard, StarRating },
+  components: { BigCareCard, StarRating },
   data() {
     return {
       data: {},
@@ -132,6 +180,8 @@ export default {
       rating: 0,
       showAlert: false,
       showComplaintAlert: false,
+      reportState: null,
+      report: "",
       complaintState: null,
       complaint: ""
     };
@@ -142,6 +192,17 @@ export default {
       if (
         this.$cookies.get("user.type").toLowerCase() == "client" &&
         this.data.reportDescription
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    canReport() {
+      if (
+        this.$cookies.get("user.type").toLowerCase() == "student" &&
+        !this.data.reportDescription &&
+        Date.parse(this.data.endTime) - Date.parse(new Date()) <= 0
       ) {
         return true;
       } else {
@@ -170,11 +231,19 @@ export default {
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity();
       this.complaintState = valid ? "valid" : "invalid";
+      this.reportState = valid ? "valid" : "invalid";
       return valid;
     },
     resetModal() {
       this.name = "";
       this.complaintState = null;
+      this.reportState = null;
+    },
+    handleOkReport(bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      // Trigger submit handler
+      this.handleSubmitReport();
     },
     handleOk(bvModalEvt) {
       // Prevent modal from closing
@@ -201,6 +270,30 @@ export default {
       // Hide the modal manually
       this.$nextTick(() => {
         this.$refs.modalComplaint.hide();
+      });
+    },
+    handleSubmitReport() {
+      // Exit when the form isn't valid
+      if (!this.checkFormValidity()) {
+        return;
+      }
+      // Push the name to submitted names
+      this.$axios
+        .post("/services/" + this.$route.params.id + "/report", {
+          reportDescription: this.report
+        })
+        .then(() => {
+          this.$router.replace({
+            name: "/care/" + this.$route.params.id,
+            params: { sent: true }
+          });
+        })
+        .catch(() => {
+          alert("Ha ocurrido un error. Por favor inténtelo de nuevo.");
+        });
+      // Hide the modal manually
+      this.$nextTick(() => {
+        this.$refs.modalReport.hide();
       });
     },
     setRating: function() {

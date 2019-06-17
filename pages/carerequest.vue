@@ -5,7 +5,9 @@
         ><h2 class="title mb-4">Pedir servicio de cuido</h2></b-col
       >
       <b-col
-        ><b-button to="/mainscreen" variant="outline-primary">Atrás</b-button></b-col
+        ><b-button to="/mainscreen" variant="outline-primary"
+          >Atrás</b-button
+        ></b-col
       >
     </b-row>
 

@@ -33,6 +33,7 @@ export default {
     datetime: { type: String, required: true },
     pet: { type: Number, required: true },
     caregiver: { type: Number, required: true },
+    owner: { type: Number, required: false },
     cid: { type: Number, required: true }
   },
   data() {
@@ -47,18 +48,31 @@ export default {
         "https://cdn.dribbble.com/users/238583/screenshots/3630870/lagif-grande.gif"
     };
   },
-  created() {
-    this.$axios.$get("/pets/" + this.pet).then(response => {
+  computed: {
+    type() {
+      return this.$cookies.get("user.type").toLowerCase();
+    }
+  },
+  async created() {
+    await this.$axios.$get("/pets/" + this.pet).then(response => {
       this.petname = response.name;
       this.petimg = response.photoLinks[0]
         ? response.photoLinks[0]
         : "/img/dog.jpg";
+      this.owner = response.idPetOwner;
     });
 
-    this.$axios.$get("/students/" + this.caregiver).then(response => {
-      this.carename = response.name;
-      this.careimg = response.photo ? response.photo : "/img/person.jpg";
-    });
+    if (this.type == "student" && this.owner) {
+      this.$axios.$get("/clients/" + this.owner).then(response => {
+        this.carename = response.name;
+        this.careimg = response.photo ? response.photo : "/img/person.jpg";
+      });
+    } else {
+      this.$axios.$get("/students/" + this.caregiver).then(response => {
+        this.carename = response.name;
+        this.careimg = response.photo ? response.photo : "/img/person.jpg";
+      });
+    }
   },
   methods: {
     goTo() {
