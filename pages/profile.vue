@@ -163,7 +163,7 @@ export default {
   },
   methods: {
     disableAccount() {
-      var url = "/" + this.type() + "/changestatus";
+      var url = "/" + this.type() + "s/changestatus";
       var r = confirm(
         "¿Está seguro que desea deactivar su cuenta? Podrá activarla de nuevo aquí mismo en cualquier momento"
       );
