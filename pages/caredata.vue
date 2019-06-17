@@ -1,19 +1,19 @@
 <template>
   <b-container>
     <b-row>
-      <b-col>
+      <b-col cols="9">
         <b-row>
-             <CareCard
-                carename="Joseph"
-                careimg="https://via.placeholder.com/150"
-                petname="Mascotín"
-                petimg="https://via.placeholder.com/150"
-                date="Hoy"
-                hour="03:05 PM"
-              ></CareCard>
+          <CareCard
+            carename="Joseph"
+            careimg="https://via.placeholder.com/150"
+            petname="Mascotín"
+            petimg="https://via.placeholder.com/150"
+            date="Hoy"
+            hour="03:05 PM"
+          ></CareCard>
         </b-row>
       </b-col>
-      <b-col>
+      <b-col cols="3">
         <b-button to="/mainscreen" variant="primary">Atrás</b-button>
       </b-col>
     </b-row>

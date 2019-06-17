@@ -15,7 +15,7 @@ import nuxt_plugin_templatesplugin4f702a06_52997396 from 'nuxt_plugin_templatesp
 import nuxt_plugin_axios_1a474586 from 'nuxt_plugin_axios_1a474586' // Source: ./axios.js (mode: 'all')
 import nuxt_plugin_vuecookies_6b36a0a5 from 'nuxt_plugin_vuecookies_6b36a0a5' // Source: ../plugins/vue-cookies.js (mode: 'all')
 import nuxt_plugin_errorParser_d003fd74 from 'nuxt_plugin_errorParser_d003fd74' // Source: ../plugins/errorParser.js (mode: 'all')
-import nuxt_plugin_vuecontentplaceholders_251356c6 from 'nuxt_plugin_vuecontentplaceholders_251356c6' // Source: ../plugins/vue-content-placeholders.js (mode: 'all')
+import nuxt_plugin_moment_57893d7e from 'nuxt_plugin_moment_57893d7e' // Source: ../plugins/moment.js (mode: 'all')
 
 // Component: <NoSsr>
 Vue.component(NoSsr.name, NoSsr)
@@ -154,8 +154,8 @@ async function createApp(ssrContext) {
     await nuxt_plugin_errorParser_d003fd74(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_vuecontentplaceholders_251356c6 === 'function') {
-    await nuxt_plugin_vuecontentplaceholders_251356c6(app.context, inject)
+  if (typeof nuxt_plugin_moment_57893d7e === 'function') {
+    await nuxt_plugin_moment_57893d7e(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

@@ -44,9 +44,17 @@ export default {
 .card {
   max-width: 600px;
   height: 150px;
+  min-width: 500px;
 }
 
 .card img {
   max-height: 150px;
+  background: whiteSmoke;
+  object-fit: cover;
+}
+
+.card img.rounded-circle {
+  height: 90px;
+  width: 90px;
 }
 </style>

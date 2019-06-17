@@ -14,6 +14,7 @@ const _07cec55e = () => interopDefault(import('../pages/pets.vue' /* webpackChun
 const _632787f4 = () => interopDefault(import('../pages/readreport.vue' /* webpackChunkName: "pages/readreport" */))
 const _38758ade = () => interopDefault(import('../pages/report.vue' /* webpackChunkName: "pages/report" */))
 const _51816241 = () => interopDefault(import('../pages/schedule.vue' /* webpackChunkName: "pages/schedule" */))
+const _2c15e5cd = () => interopDefault(import('../pages/settings.vue' /* webpackChunkName: "pages/settings" */))
 const _1e51c508 = () => interopDefault(import('../pages/signpet.vue' /* webpackChunkName: "pages/signpet" */))
 const _b233d67c = () => interopDefault(import('../pages/signup.vue' /* webpackChunkName: "pages/signup" */))
 const _34e5f3ee = () => interopDefault(import('../pages/signupconfirm.vue' /* webpackChunkName: "pages/signupconfirm" */))
@@ -143,6 +144,10 @@ export function createRouter() {
       path: "/schedule",
       component: _51816241,
       name: "schedule"
+    }, {
+      path: "/settings",
+      component: _2c15e5cd,
+      name: "settings"
     }, {
       path: "/signpet",
       component: _1e51c508,

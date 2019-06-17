@@ -3,6 +3,9 @@
     <b-alert v-if="$route.query.action == 'newPet'" show dismissible
       >La mascota se ha añadido correctamente.</b-alert
     >
+    <b-alert v-if="$route.query.action == 'newCare'" show dismissible
+      >El cuidado se ha programado correctamente.</b-alert
+    >
 
     <b-row>
       <b-col>
@@ -98,28 +101,34 @@
         </b-row>
       </b-col>
       <b-col>
-        <b-row class="border rounded mb-2" style="background-color: #E8E9E8">
+        <b-row class="border rounded mb-2 pb-2" style="background-color: #E8E9E8">
           <b-container>
             <div>
               <h2 class="title mb-2 mt-2 ">
                 Próximos cuidados
               </h2>
-
-              <CareCard
-                carename="Joseph"
-                careimg="https://via.placeholder.com/150"
-                petname="Mascotín"
-                petimg="https://via.placeholder.com/150"
-                date="Hoy"
-                hour="03:05 PM"
-              ></CareCard>
-
-              <b-button
-                to="/"
-                variant="primary"
-                class="btn btn-primary btn-lg btn-block mt-2 mb-2"
-                >Ver más</b-button
+              <b-card
+                v-if="caresLoading"
+                class="d-flex align-items-center"
+                style="width:100%;height:150px;"
               >
+                <strong>Cargando...</strong>
+                <div
+                  class="spinner-border ml-auto"
+                  role="status"
+                  aria-hidden="true"
+                ></div>
+              </b-card>
+              <DynamicCareCard
+                v-for="care in cares"
+                v-else
+                :key="care.idWalkService"
+                :datetime="care.startTime"
+                :caregiver="care.idCaregiver"
+                :pet="care.idPet"
+                class="mb-1"
+              ></DynamicCareCard>
+
             </div>
           </b-container>
         </b-row>
@@ -176,16 +185,19 @@
 </template>
 
 <script>
-import CareCard from "~/components/CareCard.vue";
+import DynamicCareCard from "~/components/DynamicCareCard.vue";
 
 export default {
   middleware: "auth",
-  components: { CareCard },
+  components: { DynamicCareCard },
   data() {
     return {
       avatar: "",
       name: "",
-      ready: false
+      ready: false,
+      cares: [],
+      tasks: [],
+      caresLoading: true
     };
   },
   computed: {
@@ -196,10 +208,22 @@ export default {
     }
   },
   async created() {
+    this.loadCares();
+    this.loadTasks();
     var data = await this.fetchProfile();
     this.avatar = data.avatar;
     this.name = data.name;
     this.ready = true;
+  },
+  methods: {
+    loadCares() {
+      let userId = this.$cookies.get("user.id");
+      this.$axios.get("/clients/" + userId + "/services").then(response => {
+        this.cares = response.data;
+        this.caresLoading = false;
+      });
+    },
+    loadTasks() {}
   }
 };
 </script>

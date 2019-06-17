@@ -45,7 +45,7 @@ export default {
   plugins: [
     "~/plugins/vue-cookies.js",
     "~/plugins/errorParser.js",
-    "~/plugins/vue-content-placeholders.js"
+    "~/plugins/moment.js"
   ],
   /*
    ** Nuxt.js modules

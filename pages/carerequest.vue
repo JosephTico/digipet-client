@@ -160,7 +160,7 @@
           <b-form-group label="Lugar de recogida:">
             <b-form-textarea
               id="textarea"
-              v-model="form.PickUpLocation"
+              v-model="form.pickUpLocation"
               placeholder="Describa el lugar de recogida"
               required
               rows="2"
@@ -176,7 +176,7 @@
           <b-form-group label="Comentarios:">
             <b-form-textarea
               id="textarea"
-              v-model="form.OwnerComments"
+              v-model="form.ownerComments"
               placeholder="Inserte comentarios o requerimientos especiales para el cuido de su mascota"
               rows="3"
               max-rows="6"
@@ -214,9 +214,7 @@ export default {
   },
   data() {
     return {
-      form: {
-        file: ""
-      },
+      form: {},
       date: {
         startHour: "12",
         startMinutes: "0",
@@ -270,8 +268,23 @@ export default {
 
   methods: {
     sendRequest() {
-      alert("Aqui se envia todo jejps");
-      this.loading = false;
+      this.$axios
+        .$post("/services", this.form)
+        .then(() => {
+          this.$router.push({
+            path: "/mainscreen",
+            query: { action: "newCare" }
+          });
+        })
+        .catch(error => {
+          this.loading = false;
+          console.error(error.response);
+          this.$bvModal.msgBoxOk(this.errorParser(error), {
+            title: "Lo sentimos",
+            centered: true,
+            hideHeaderClose: true
+          });
+        });
     },
     loadPrice() {
       this.$axios

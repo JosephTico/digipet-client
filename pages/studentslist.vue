@@ -73,6 +73,11 @@ export default {
           sortable: true
         },
         {
+          key: "carnet",
+          label: "Carnet",
+          sortable: true
+        },
+        {
           key: "province",
           label: "Provincia",
           sortable: true
