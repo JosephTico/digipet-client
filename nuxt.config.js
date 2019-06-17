@@ -75,7 +75,7 @@ export default {
    */
   axios: {
     retry: { retries: 3 },
-    baseURL: "http://192.168.1.106:4567"
+    baseURL: "http://35.188.108.48:4567"
   },
   /*
    ** Build configuration
