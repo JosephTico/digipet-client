@@ -27,6 +27,7 @@
     "vue-datetime": "^1.0.0-beta.10",
     "vue-multiselect": "^2.1.6",
     "vue-password": "^2.0.2",
+    "vue-star-rating": "^1.6.1",
     "weekstart": "^1.0.0"
   },
   "devDependencies": {

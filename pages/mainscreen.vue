@@ -64,6 +64,14 @@
             </b-row>
             <b-row v-if="type == 'client'" align-h="center" class="mb-3">
               <b-button
+                to="/pets"
+                variant="primary"
+                class="btn btn-primary btn-lg btn-block"
+                >Mis mascotas</b-button
+              >
+            </b-row>
+            <b-row v-if="type == 'client'" align-h="center" class="mb-3">
+              <b-button
                 to="/carerequest"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"

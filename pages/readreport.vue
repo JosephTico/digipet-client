@@ -55,6 +55,16 @@
       </b-col>
     </b-row>
     <b-row>
+      <h2 class="title mb-3 mt-3 disabled ">
+        Calificar servicio:
+        <StarRating
+          v-model="form.rating"
+          :read-only="alreadyReviewed"
+          @rating-selected="setRating"
+        ></StarRating>
+      </h2>
+    </b-row>
+    <b-row>
       <h2 class="title mb-3 mt-3 ">
         Detalles de cuidado:
       </h2>
@@ -72,18 +82,27 @@
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
+
 export default {
+  components: {
+    StarRating
+  },
   data() {
     return {
       form: {
         file: ""
       },
       fileStorage: null,
-      errorString: ""
+      errorString: "",
+      alreadyReviewed: false
     };
   },
 
   methods: {
+    setRating: function() {
+      this.alreadyReviewed = true;
+    },
     onSubmit(event) {
       event.preventDefault();
       alert(JSON.stringify(this.form));
