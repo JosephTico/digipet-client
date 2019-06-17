@@ -16,6 +16,7 @@ const _51816241 = () => interopDefault(import('../pages/schedule.vue' /* webpack
 const _1e51c508 = () => interopDefault(import('../pages/signpet.vue' /* webpackChunkName: "pages/signpet" */))
 const _b233d67c = () => interopDefault(import('../pages/signup.vue' /* webpackChunkName: "pages/signup" */))
 const _34e5f3ee = () => interopDefault(import('../pages/signupconfirm.vue' /* webpackChunkName: "pages/signupconfirm" */))
+const _868d8d40 = () => interopDefault(import('../pages/studentslist.vue' /* webpackChunkName: "pages/studentslist" */))
 const _58d37a2a = () => interopDefault(import('../pages/viewprofile.vue' /* webpackChunkName: "pages/viewprofile" */))
 const _28bffb18 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -149,6 +150,10 @@ export function createRouter() {
       path: "/signupconfirm",
       component: _34e5f3ee,
       name: "signupconfirm"
+    }, {
+      path: "/studentslist",
+      component: _868d8d40,
+      name: "studentslist"
     }, {
       path: "/viewprofile",
       component: _58d37a2a,

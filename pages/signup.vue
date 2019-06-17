@@ -226,7 +226,6 @@ export default {
         personalDescription: "Test",
         idProvince: 1,
         idCanton: 1,
-        idUniversity: 1,
         email1: "test@test.com",
         phone: "88888888"
       },

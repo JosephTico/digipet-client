@@ -204,9 +204,9 @@
 <script>
 import { Datetime } from "vue-datetime";
 import "vue-datetime/dist/vue-datetime.css";
+
 export default {
   middleware: "auth",
-
   components: {
     datetime: Datetime
   },
@@ -271,6 +271,33 @@ export default {
       alert("Aqui se envia todo jejps");
       this.loading = false;
     },
+    loadPrice() {
+      console.log("Aqui calculo el precio");
+    },
+    loadCareGiver() {
+      this.$axios
+        .$post("/services/availability", {
+          idPet: this.form.idPet,
+          idPetOwner: this.$cookies.get("user.id"),
+          startTime: this.form.startTime,
+          endTime: this.form.endTime,
+          location: " "
+        })
+        .then(response => {
+          console.log(response);
+          this.loadPrice();
+        })
+        .catch(error => {
+          console.error(error.response);
+          let msg = this.errorParser(error);
+          this.loading = false;
+          this.$bvModal.msgBoxOk(msg, {
+            title: "Lo sentimos",
+            centered: true,
+            hideHeaderClose: true
+          });
+        });
+    },
     confirmRequest() {
       this.boxTwo = "";
       this.$bvModal
@@ -292,7 +319,7 @@ export default {
       event.preventDefault();
       this.loading = true;
       this.prepareData();
-      this.confirmRequest();
+      this.loadCareGiver();
     },
 
     prepareData() {

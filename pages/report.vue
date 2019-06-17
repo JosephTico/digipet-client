@@ -4,49 +4,18 @@
       <b-col>
         <b-row>
           <b-container class=" mr-3">
-            <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-              <b-row no-gutters style="height:100px">
-                <b-col md="3">
-                  <b-card
-                    border-variant="primary"
-                    align="center"
-                    style="width:100px; height:100px"
-                  >
-                    <h3>24</h3>
-                    <h5>JUN</h5>
-                  </b-card>
-                </b-col>
-                <b-col cols="2">
-                  <b-row class="mb-2 mt-4">
-                    <fa icon="map-marker-alt" class="mr-2 mt-1"></fa>Linea1
-                  </b-row>
-                  <b-row class="mb-2">
-                    <fa icon="clock" class="mr-1 mt-1"></fa>Linea2
-                  </b-row>
-                </b-col>
-                <b-col cols="2">
-                  <b-img
-                    src="https://picsum.photos/250/250/?image=54"
-                    center
-                    rounded="circle"
-                    alt="Circle image"
-                    class="mu-1 mt-1"
-                    style="width:90px; height:90px"
-                  >
-                  </b-img>
-                </b-col>
-                <b-col class="ml-4">
-                  <b-form-row class=" mt-3 ">
-                    <h4 class="title">
-                      Joseph PICHAS
-                    </h4>
-                    <h6 class="text-muted ml-2">
-                      nombre del animalejo
-                    </h6>
-                  </b-form-row>
-                </b-col>
-              </b-row>
-            </b-card>
+            
+
+              <CareCard
+                carename="Joseph"
+                careimg="https://via.placeholder.com/150"
+                petname="Mascotín"
+                petimg="https://via.placeholder.com/150"
+                date="Hoy"
+                hour="03:05 PM"
+              ></CareCard>
+
+
           </b-container>
         </b-row>
       </b-col>
@@ -75,9 +44,11 @@
 </template>
 
 <script>
+import CareCard from "~/components/CareCard.vue";
+
 export default {
   middleware: "auth",
-
+  components: { CareCard },
   data() {
     return {
       form: {
