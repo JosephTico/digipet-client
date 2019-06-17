@@ -1,8 +1,5 @@
 <template>
   <b-container>
-    <b-alert variant="success" dismissible success alert :show="showAlert"
-      >El cuidador se ha calificado correctamente.</b-alert
-    >
     <b-row>
       <b-col>
         <b-row>
@@ -55,61 +52,43 @@
       </b-col>
       <b-col>
         <b-button href="/mainscreen" variant="primary">Atrás</b-button>
-        <b-button href="/mainscreen" variant="danger">Denunciar</b-button>
       </b-col>
-    </b-row>
-
-    <b-row>
-      <h2 class="title mb-3 mt-3 disabled ">
-        Calificar servicio:
-        <StarRating
-          v-model="form.rating"
-          :read-only="alreadyReviewed"
-          @rating-selected="setRating"
-        ></StarRating>
-      </h2>
     </b-row>
     <b-row>
       <h2 class="title mb-3 mt-3 ">
-        Detalles de cuidado:
+        Descripción de su denuncia:
       </h2>
     </b-row>
-
-    <div>
-      <b-card-text>
-        Some quick example text to build on the <em>card title</em> and make up
-        the bulk of the card's content.
-      </b-card-text>
-
-      <b-card-text>A second paragraph of text in the card.</b-card-text>
-    </div>
+    <b-form @submit="onSubmit">
+      <b-form-textarea
+        id="textarea"
+        v-model="form.Description"
+        placeholder="Escriba aquí su denuncia "
+        required
+        rows="6"
+        max-rows="12"
+      >
+      </b-form-textarea>
+      <b-button type="submit" class="mt-3" variant="primary">Submit</b-button>
+    </b-form>
   </b-container>
 </template>
 
 <script>
-import StarRating from "vue-star-rating";
-
 export default {
-  components: {
-    StarRating
-  },
+  middleware: "auth",
+
   data() {
     return {
       form: {
         file: ""
       },
       fileStorage: null,
-      errorString: "",
-      alreadyReviewed: false,
-      showAlert: false
+      errorString: ""
     };
   },
 
   methods: {
-    setRating: function() {
-      this.alreadyReviewed = true;
-      this.showAlert = true;
-    },
     onSubmit(event) {
       event.preventDefault();
       alert(JSON.stringify(this.form));

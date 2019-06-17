@@ -46,7 +46,15 @@
                 >Mis Horarios</b-button
               >
             </b-row>
-            <b-row align-h="center" class="mb-3">
+            <b-row v-if="type == 'client'" align-h="center" class="mb-3">
+              <b-button
+                to="/carerequest"
+                variant="primary"
+                class="btn btn-primary btn-lg btn-block"
+                >Solicitar cuido</b-button
+              >
+            </b-row>
+            <b-row v-if="type != 'admin'" align-h="center" class="mb-3">
               <b-button
                 to="/caresrecord"
                 variant="primary"
@@ -70,12 +78,20 @@
                 >Mis mascotas</b-button
               >
             </b-row>
-            <b-row v-if="type == 'client'" align-h="center" class="mb-3">
+            <b-row v-if="type != 'admin'" align-h="center" class="mb-3">
               <b-button
-                to="/carerequest"
+                to="/viewprofile"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
-                >Solicitar cuido</b-button
+                >Ver perfil</b-button
+              >
+            </b-row>
+            <b-row v-if="type == 'admin'" align-h="center" class="mb-3">
+              <b-button
+                to="/"
+                variant="primary"
+                class="btn btn-primary btn-lg btn-block"
+                >Lista de cuidadores</b-button
               >
             </b-row>
           </b-container>

@@ -1,7 +1,9 @@
 <template>
   <div>
     <b-row align-h="between">
-      <b-col cols="10"><h2 class="title mb-4">Pedir caminata</h2></b-col>
+      <b-col cols="10"
+        ><h2 class="title mb-4">Pedir servicio de cuido</h2></b-col
+      >
       <b-col
         ><b-button href="/mainscreen" variant="primary">Atrás</b-button></b-col
       >
@@ -15,25 +17,44 @@
       {{ errorString }}
     </b-alert>
 
-    <b-form @submit="onSubmit">
+    <div
+      v-if="firstLoading"
+      class="d-flex align-items-center"
+      style="width:100%;height:310px;"
+    >
+      <strong>Cargando...</strong>
+      <div
+        class="spinner-border ml-auto"
+        role="status"
+        aria-hidden="true"
+      ></div>
+    </div>
+
+    <b-form v-else @submit="onSubmit">
       <b-form-row>
         <b-col>
-          <b-form-group label="Escoger:">
+          <b-form-group label="Mascota:" for="idPet">
             <b-form-select
-              id="inline-form-custom-select-pref"
-              v-model="form.Size"
+              id="idPet"
+              v-model="form.idPet"
               class="mb-2 mr-sm-2 mb-sm-0"
               required
               :value="null"
-              :options="{ '1': 'yose', '2': 'nasho' }"
             >
               <option slot="first" :value="null">Escoja una mascota...</option>
+              <option v-for="pet in pets" :key="pet.idPet" :value="pet.idPet">{{
+                pet.name
+              }}</option>
             </b-form-select>
           </b-form-group>
         </b-col>
         <b-col>
-          <b-form-group label="Escoger fecha:">
-            <b-col><datetime v-model="form.Date"></datetime></b-col>
+          <b-form-group label="Fecha:">
+            <datetime
+              v-model="date.date"
+              input-class="form-control"
+              required
+            ></datetime>
           </b-form-group>
         </b-col>
       </b-form-row>
@@ -42,36 +63,36 @@
           <b-form-group label="Hora inicio:">
             <b-form-select
               id="inline-form-custom-select-pref"
-              v-model="form.StartHour"
+              v-model="date.startHour"
               class="mb-2 mr-sm-2 mb-sm-0"
               required
               :value="null"
-              :options="{
-                '1': '0',
-                '2': '1',
-                '3': '2',
-                '4': '3',
-                '5': '4',
-                '6': '5',
-                '7': '6',
-                '8': '7',
-                '9': '8',
-                '10': '9',
-                '11': '10',
-                '12': '11',
-                '13': '12',
-                '14': '13',
-                '15': '14',
-                '16': '15',
-                '17': '16',
-                '18': '17',
-                '19': '18',
-                '20': '19',
-                '21': '20',
-                '22': '21',
-                '23': '22',
-                '24': '23'
-              }"
+              :options="[
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23
+              ]"
             >
               <option slot="first" :value="null"
                 >Escoja una Hora de inicio...</option
@@ -86,11 +107,11 @@
           <b-form-group class="" label=" ">
             <b-form-select
               id="inline-form-custom-select-pref"
-              v-model="form.StartMinutes"
+              v-model="date.startMinutes"
               class="mb-2 mr-sm-2 mb-sm-0 mt-4"
               required
               :value="null"
-              :options="{ '1': '00', '2': '30' }"
+              :options="{ 0: '00', 30: '30' }"
             >
               <option slot="first" :value="null">Escoja una opción...</option>
             </b-form-select>
@@ -102,36 +123,11 @@
           <b-form-group label="Hora final:">
             <b-form-select
               id="inline-form-custom-select-pref"
-              v-model="form.EndHour"
+              v-model="date.endHour"
               class="mb-2 mr-sm-2 mb-sm-0"
               required
               :value="null"
-              :options="{
-                '1': '0',
-                '2': '1',
-                '3': '2',
-                '4': '3',
-                '5': '4',
-                '6': '5',
-                '7': '6',
-                '8': '7',
-                '9': '8',
-                '10': '9',
-                '11': '10',
-                '12': '11',
-                '13': '12',
-                '14': '13',
-                '15': '14',
-                '16': '15',
-                '17': '16',
-                '18': '17',
-                '19': '18',
-                '20': '19',
-                '21': '20',
-                '22': '21',
-                '23': '22',
-                '24': '23'
-              }"
+              :options="finalHour"
             >
               <option slot="first" :value="null"
                 >Escoja una Hora final...</option
@@ -146,11 +142,11 @@
           <b-form-group class="" label=" ">
             <b-form-select
               id="inline-form-custom-select-pref"
-              v-model="form.EndMinutes"
+              v-model="date.endMinutes"
               class="mb-2 mr-sm-2 mb-sm-0 mt-4"
               required
               :value="null"
-              :options="{ '1': '00', '2': '30' }"
+              :options="finalMinute"
             >
               <option slot="first" :value="null">Escoja una opción...</option>
             </b-form-select>
@@ -163,10 +159,11 @@
             <b-form-textarea
               id="textarea"
               v-model="form.PickUpLocation"
-              placeholder="Inserte el lugar de recogida"
+              placeholder="Describa el lugar de recogida"
               required
               rows="2"
               max-rows="3"
+              maxlength="300"
             >
             </b-form-textarea>
           </b-form-group>
@@ -174,21 +171,32 @@
       </b-form-row>
       <b-form-row>
         <b-col>
-          <b-form-group label="Descripción:">
+          <b-form-group label="Comentarios:">
             <b-form-textarea
               id="textarea"
               v-model="form.OwnerComments"
-              placeholder="Inserte comentarios para el cuido de su mascota"
-              required
+              placeholder="Inserte comentarios o requerimientos especiales para el cuido de su mascota"
               rows="3"
               max-rows="6"
+              maxlength="300"
             >
             </b-form-textarea>
           </b-form-group>
         </b-col>
       </b-form-row>
 
-      <b-button type="submit" variant="primary">Confirmar</b-button>
+      <b-button
+        v-if="loading"
+        type="submit"
+        variant="primary"
+        style="width:100%"
+        disabled
+      >
+        <b-spinner small label="Small Spinner"></b-spinner>
+      </b-button>
+      <b-button v-else type="submit" variant="primary" style="width:100%"
+        >Confirmar solicitud</b-button
+      >
     </b-form>
   </div>
 </template>
@@ -207,15 +215,100 @@ export default {
       form: {
         file: ""
       },
+      date: {
+        startHour: "9",
+        startMinutes: "30",
+        endHour: "16",
+        endMinutes: "30"
+      },
       fileStorage: null,
-      errorString: ""
+      errorString: "",
+      firstLoading: true,
+      loading: false,
+      pets: []
     };
   },
 
+  computed: {
+    finalHour() {
+      let list = [];
+      let counter = this.date.startHour;
+      if (this.date.startMinutes == 30) counter++;
+      while (counter < 24) {
+        list.push(counter);
+        counter++;
+      }
+      return list;
+    },
+    finalMinute() {
+      if (this.date.startHour == this.date.endHour) {
+        return { 30: "30" };
+      } else {
+        return { 0: "00", 30: "30" };
+      }
+    }
+  },
+
+  created() {
+    let userId = this.$cookies.get("user.id");
+
+    this.$axios
+      .get("/clients/" + userId + "/pets")
+      .then(response => {
+        this.pets = response.data;
+        this.firstLoading = false;
+      })
+      .catch(() => {
+        alert(
+          "Ha ocurrido un error al obtener las mascotas. Por favor inténtelo de nuevo más tarde"
+        );
+        this.firstLoading = false;
+      });
+  },
+
   methods: {
+    sendRequest() {
+      alert("Aqui se envia todo jejps");
+      this.loading = false;
+    },
+    confirmRequest() {
+      this.boxTwo = "";
+      this.$bvModal
+        .msgBoxConfirm("¿Desea confirmar esta solicitud?", {
+          title: "Por favor confirme",
+          size: "sm",
+          okTitle: "Sí",
+          cancelTitle: "No",
+          footerClass: "p-2",
+          hideHeaderClose: false,
+          centered: true
+        })
+        .then(value => {
+          if (value) this.sendRequest();
+          else this.loading = false;
+        });
+    },
     onSubmit(event) {
       event.preventDefault();
-      alert(JSON.stringify(this.form));
+      this.loading = true;
+      this.prepareData();
+      this.confirmRequest();
+    },
+
+    prepareData() {
+      let startDate = new Date(this.date.date);
+      let endDate = new Date(this.date.date);
+      startDate.setUTCHours(this.date.startHour, this.date.startMinutes);
+      endDate.setUTCHours(this.date.endHour, this.date.endMinutes);
+
+      this.form.startTime = startDate
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
+      this.form.endTime = endDate
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
     }
   }
 };

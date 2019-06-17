@@ -6,6 +6,7 @@ const _2cd0d28a = () => interopDefault(import('../pages/care.vue' /* webpackChun
 const _22edd7e5 = () => interopDefault(import('../pages/caredata.vue' /* webpackChunkName: "pages/caredata" */))
 const _6abb8424 = () => interopDefault(import('../pages/carerequest.vue' /* webpackChunkName: "pages/carerequest" */))
 const _34b89999 = () => interopDefault(import('../pages/caresrecord.vue' /* webpackChunkName: "pages/caresrecord" */))
+const _0dec7793 = () => interopDefault(import('../pages/complain.vue' /* webpackChunkName: "pages/complain" */))
 const _50fd96dc = () => interopDefault(import('../pages/confirmpay.vue' /* webpackChunkName: "pages/confirmpay" */))
 const _7b7898e2 = () => interopDefault(import('../pages/mainscreen.vue' /* webpackChunkName: "pages/mainscreen" */))
 const _07cec55e = () => interopDefault(import('../pages/pets.vue' /* webpackChunkName: "pages/pets" */))
@@ -15,6 +16,7 @@ const _51816241 = () => interopDefault(import('../pages/schedule.vue' /* webpack
 const _1e51c508 = () => interopDefault(import('../pages/signpet.vue' /* webpackChunkName: "pages/signpet" */))
 const _b233d67c = () => interopDefault(import('../pages/signup.vue' /* webpackChunkName: "pages/signup" */))
 const _34e5f3ee = () => interopDefault(import('../pages/signupconfirm.vue' /* webpackChunkName: "pages/signupconfirm" */))
+const _58d37a2a = () => interopDefault(import('../pages/viewprofile.vue' /* webpackChunkName: "pages/viewprofile" */))
 const _28bffb18 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
@@ -108,6 +110,10 @@ export function createRouter() {
       component: _34b89999,
       name: "caresrecord"
     }, {
+      path: "/complain",
+      component: _0dec7793,
+      name: "complain"
+    }, {
       path: "/confirmpay",
       component: _50fd96dc,
       name: "confirmpay"
@@ -143,6 +149,10 @@ export function createRouter() {
       path: "/signupconfirm",
       component: _34e5f3ee,
       name: "signupconfirm"
+    }, {
+      path: "/viewprofile",
+      component: _58d37a2a,
+      name: "viewprofile"
     }, {
       path: "/",
       component: _28bffb18,

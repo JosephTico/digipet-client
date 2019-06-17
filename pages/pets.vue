@@ -4,6 +4,14 @@
       Mis mascotas
     </h2>
 
+    <b-table
+      striped
+      hover
+      :items="pets"
+      :fields="fields"
+      primary-key="idPet"
+    ></b-table>
+
     <div
       v-if="loading"
       class="d-flex align-items-center"
@@ -16,13 +24,6 @@
         aria-hidden="true"
       ></div>
     </div>
-    <b-table
-      striped
-      hover
-      :items="pets"
-      :fields="fields"
-      primary-key="idPet"
-    ></b-table>
   </div>
 </template>
 
