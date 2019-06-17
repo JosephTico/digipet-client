@@ -2,6 +2,7 @@
   <div>
     <h2 class="title mb-4">
       Cuidadores registrados
+      <b-button to="/settings" variant="outline-primary">Atrás</b-button>
     </h2>
 
     <b-row>
@@ -25,10 +26,10 @@
     <b-table
       striped
       hover
-      :items="pets"
+      :items="studentList"
       :fields="fields"
       :filter="filter"
-      primary-key="idPet"
+      primary-key="idCaregiver"
       @filtered="onFiltered"
     ></b-table>
 
@@ -73,12 +74,12 @@ export default {
           sortable: true
         },
         {
-          key: "carnet",
+          key: "idStudent",
           label: "Carnet",
           sortable: true
         },
         {
-          key: "province",
+          key: "idProvince",
           label: "Provincia",
           sortable: true
         },
@@ -88,12 +89,12 @@ export default {
           sortable: true
         },
         {
-          key: "walksQualification",
+          key: "walksRating",
           label: "Calificación",
           sortable: true
         },
         {
-          key: "incriptionDate",
+          key: "inscriptionDate",
           label: "Fecha de inscripción",
           sortable: true
         },
@@ -105,10 +106,27 @@ export default {
       ]
     };
   },
+  computed: {
+    studentList() {
+      return this.caregiver.map(item => {
+        return {
+          idCaregiveer: item.idCaregiveer,
+          name: item.name,
+          lastName: item.lastName,
+          idStudent: item.idStudent,
+          idProvince: item.idProvince,
+          walksQuantity: item.walksQuantity,
+          walksRating: item.walksRating,
+          inscriptionDate: new Date(item.inscriptionDate).toUTCString(),
+          status: this.status(item.status)
+        };
+      });
+    }
+  },
   created() {
     this.loading = true;
     this.$axios
-      .get("")
+      .get("/administrators/students")
       .then(response => {
         this.caregiver = response.data;
         this.loading = false;
@@ -121,6 +139,15 @@ export default {
       });
   },
   methods: {
+    status(number) {
+      if (number == 0) {
+        return "Desactivado";
+      } else if (number == 1) {
+        return "Activado";
+      } else {
+        return "Bloqueado";
+      }
+    },
     info(item, index, button) {
       this.infoModal.title = `Row index: ${index}`;
       this.infoModal.content = JSON.stringify(item, null, 2);

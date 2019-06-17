@@ -88,10 +88,28 @@ export default {
     datetime: Datetime
   },
   data() {
-    return {};
+    return {
+      schedule: [],
+      currentDate: ""
+    };
   },
 
-  methods: {}
+  methods: {
+    refreshSchedule() {
+      let date = new Date(this.currentDate);
+      date = date
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
+      this.$axios
+        .$get(
+          "/students/" + this.$cookies.get("user.id") + "/schedule?date=" + date
+        )
+        .then(response => {
+          this.schedule = response.data;
+        });
+    }
+  }
 };
 </script>
 

@@ -15,8 +15,9 @@
           id="modal-1"
           title="Modificar precio de cuidos (por defecto = 30)"
           @ok="sendPrice"
+          ref="modalPrice"
         >
-          <p class="">Inserte el nuevo precio:</p>
+          <p>Inserte el nuevo precio:</p>
           <b-form @submit.stop.prevent="sendPrice">
             <b-form-input
               id="input-1"
@@ -239,8 +240,11 @@ export default {
   methods: {
     sendPrice(evnt) {
       evnt.preventDefault();
-      this.$axios.$post("/price", {
+      this.$axios.$post("/administrators/price", {
         price: this.form.price
+      });
+      this.$nextTick(() => {
+        this.$refs.modalPrice.hide();
       });
     }
   }
