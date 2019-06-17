@@ -2,7 +2,7 @@
   <div>
     <h2 class="title mb-4">
       Mis mascotas
-      <b-button to="/mainscreen" variant="primary">Atras</b-button>
+      <b-button to="/mainscreen" variant="outline-primary">Atras</b-button>
       <b-button to="/signpet" variant="primary">Nueva mascota</b-button>
       
     </h2>

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h2 class="title mb-4">Registro de Mascotas</h2>
+    <h2 class="title mb-4">
+      Registro de Mascotas
+      <b-button to="/pets" variant="outline-primary">Atras</b-button>
+    </h2>
     <p class="lead">
       Por favor complete los siguientes datos para registrar su mascota
     </p>

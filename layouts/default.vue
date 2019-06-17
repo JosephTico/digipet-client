@@ -14,7 +14,10 @@
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <b-button v-if="checkLoggedIn()" variant="primary" @click="logout"
+        <b-button
+          v-if="checkLoggedIn()"
+          variant="outline-secondary"
+          @click="logout"
           >Cerrar sesión</b-button
         >
         <b-button v-else v-b-modal.login-modal variant="primary"

@@ -131,15 +131,18 @@
                 ></div>
               </b-card>
               <DynamicCareCard
-                v-for="care in cares"
+                v-for="care in caresFuture"
                 v-else
                 :key="care.idWalkService"
                 :datetime="care.startTime"
                 :caregiver="care.idCaregiver"
                 :pet="care.idPet"
-                class="mb-1"
+                :cid="care.idWalkService"
+                class="mb-1 mx-auto"
               ></DynamicCareCard>
-              <p v-if="caresDidntLoad">No hay servicios.</p>
+              <p v-if="!caresLoading && caresFuture.length == 0">
+                No hay servicios.
+              </p>
             </div>
           </b-container>
         </b-row>
@@ -148,47 +151,33 @@
           style="background-color: #E8E9E8"
         >
           <h2 class="title mb-2 mt-2 ml-2 ">
-            Tareas pendientes
+            Pendientes de calificar
           </h2>
           <b-card
-            no-body
-            class="overflow-hidden mb-2 ml-3"
-            style="max-width: 537px;"
+            v-if="caresLoading"
+            class="d-flex align-items-center"
+            style="width:100%;height:150px;"
           >
-            <b-row no-gutters style="height:100px">
-              <b-col md="1"> </b-col>
-              <b-col cols="4">
-                <b-row class=" mr-4 mt-4">
-                  <h5>Escribir reporte</h5>
-                </b-row>
-                <b-row>
-                  <fa icon="hourglass-half" class="mr-2 mt-1"></fa> {horas}
-                  restantes
-                </b-row>
-              </b-col>
-              <b-col cols="2">
-                <b-img
-                  src="https://picsum.photos/250/250/?image=54"
-                  center
-                  rounded="circle"
-                  alt="Circle image"
-                  class="mu-1 mt-1"
-                  style="width:90px; height:90px"
-                >
-                </b-img>
-              </b-col>
-              <b-col class="ml-4">
-                <b-form-row class=" mt-3 ">
-                  <h3 class="title">
-                    Joseph PICHAS
-                  </h3>
-                  <h5 class="text-muted ml-2">
-                    nombre del animalejo
-                  </h5>
-                </b-form-row>
-              </b-col>
-            </b-row>
+            <strong>Cargando...</strong>
+            <div
+              class="spinner-border ml-auto"
+              role="status"
+              aria-hidden="true"
+            ></div>
           </b-card>
+          <DynamicCareCard
+            v-for="care in caresPending"
+            v-else
+            :key="care.idWalkService"
+            :datetime="care.startTime"
+            :caregiver="care.idCaregiver"
+            :pet="care.idPet"
+            :cid="care.idWalkService"
+            class="mb-1 mx-auto"
+          ></DynamicCareCard>
+          <p v-if="!caresLoading && caresPending.length == 0">
+            No hay servicios.
+          </p>
         </b-row>
       </b-col>
     </b-row>
@@ -206,7 +195,8 @@ export default {
       avatar: "",
       name: "",
       ready: false,
-      cares: [],
+      caresFuture: [],
+      caresPending: [],
       tasks: [],
       caresLoading: true,
       caresDidntLoad: false
@@ -231,7 +221,12 @@ export default {
       this.$axios
         .get("/clients/" + userId + "/services")
         .then(response => {
-          this.cares = response.data;
+          this.caresFuture = response.data.filter(item => {
+            return !item.reportDescription;
+          });
+          this.caresPending = response.data.filter(item => {
+            return item.reportDescription;
+          });
           this.caresLoading = false;
         })
         .catch(() => {

@@ -1,5 +1,5 @@
 <template>
-  <b-card no-body class="overflow-hidden">
+  <b-card no-body class="overflow-hidden" @click="goTo">
     <b-row no-gutters>
       <b-col cols="4">
         <b-card-img :src="petimg" class="rounded-0"></b-card-img>
@@ -32,7 +32,8 @@ export default {
   props: {
     datetime: { type: String, required: true },
     pet: { type: Number, required: true },
-    caregiver: { type: Number, required: true }
+    caregiver: { type: Number, required: true },
+    cid: { type: Number, required: true }
   },
   data() {
     return {
@@ -58,6 +59,13 @@ export default {
       this.carename = response.name;
       this.careimg = response.photo ? response.photo : "/img/person.jpg";
     });
+  },
+  methods: {
+    goTo() {
+      this.$router.push({
+        path: "/care/" + this.cid
+      });
+    }
   }
 };
 </script>
@@ -67,6 +75,7 @@ export default {
   max-width: 600px;
   height: 150px;
   min-width: 500px;
+  cursor: pointer;
 }
 
 .card img {
