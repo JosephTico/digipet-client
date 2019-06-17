@@ -1,5 +1,9 @@
 <template>
   <b-row>
+    <b-alert v-if="$route.query.action == 'newPet'" show dismissible
+      >La mascota se ha añadido correctamente.</b-alert
+    >
+
     <b-row>
       <b-col>
         <b-row class="border rounded mr-2 " style="background-color: #E8E9E8">
@@ -34,7 +38,7 @@
                 Hola {{ name }}
               </h1>
             </b-row>
-            <b-row align-h="center" class="mb-3">
+            <b-row v-if="type == 'student'" align-h="center" class="mb-3">
               <b-button
                 to="/schedule"
                 variant="primary"
@@ -50,12 +54,20 @@
                 >Cuidados Anteriores</b-button
               >
             </b-row>
-            <b-row align-h="center" class="mb-3">
+            <b-row v-if="type == 'student'" align-h="center" class="mb-3">
               <b-button
                 to="/schedule"
                 variant="primary"
                 class="btn btn-primary btn-lg btn-block"
                 >Perfil y Opciónes</b-button
+              >
+            </b-row>
+            <b-row v-if="type == 'client'" align-h="center" class="mb-3">
+              <b-button
+                to="/carerequest"
+                variant="primary"
+                class="btn btn-primary btn-lg btn-block"
+                >Solicitar cuido</b-button
               >
             </b-row>
           </b-container>

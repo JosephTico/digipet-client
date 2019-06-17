@@ -188,7 +188,7 @@
         </b-col>
       </b-form-row>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="submit" variant="primary">Confirmar</b-button>
     </b-form>
   </div>
 </template>

@@ -66,13 +66,13 @@
       </b-card>
     </b-collapse>
     <div class="mt-2">
-      <b-button variant="primary" href="#">Cancelar</b-button>
+      <b-button variant="primary" href="/mainscreen">Cancelar</b-button>
       <b-button variant="success" href="#">Confirmar</b-button>
     </div>
   </div>
 </template>
 
-<script>
+<script></script>
 import { Datetime } from "vue-datetime";
 import "vue-datetime/dist/vue-datetime.css";
 

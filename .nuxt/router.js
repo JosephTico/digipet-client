@@ -8,6 +8,7 @@ const _6abb8424 = () => interopDefault(import('../pages/carerequest.vue' /* webp
 const _34b89999 = () => interopDefault(import('../pages/caresrecord.vue' /* webpackChunkName: "pages/caresrecord" */))
 const _50fd96dc = () => interopDefault(import('../pages/confirmpay.vue' /* webpackChunkName: "pages/confirmpay" */))
 const _7b7898e2 = () => interopDefault(import('../pages/mainscreen.vue' /* webpackChunkName: "pages/mainscreen" */))
+const _632787f4 = () => interopDefault(import('../pages/readreport.vue' /* webpackChunkName: "pages/readreport" */))
 const _38758ade = () => interopDefault(import('../pages/report.vue' /* webpackChunkName: "pages/report" */))
 const _51816241 = () => interopDefault(import('../pages/schedule.vue' /* webpackChunkName: "pages/schedule" */))
 const _1e51c508 = () => interopDefault(import('../pages/signpet.vue' /* webpackChunkName: "pages/signpet" */))
@@ -113,6 +114,10 @@ export function createRouter() {
       path: "/mainscreen",
       component: _7b7898e2,
       name: "mainscreen"
+    }, {
+      path: "/readreport",
+      component: _632787f4,
+      name: "readreport"
     }, {
       path: "/report",
       component: _38758ade,

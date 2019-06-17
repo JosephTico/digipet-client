@@ -81,7 +81,18 @@
         </b-col>
       </b-form-row>
 
-      <b-button type="submit" variant="primary">Ingresar mascota</b-button>
+      <b-button
+        v-if="loading"
+        type="submit"
+        variant="primary"
+        style="width:100%"
+        disabled
+      >
+        <b-spinner small label="Small Spinner"></b-spinner>
+      </b-button>
+      <b-button v-else type="submit" variant="primary" style="width:100%"
+        >Ingresar mascota</b-button
+      >
     </b-form>
   </div>
 </template>
@@ -91,17 +102,68 @@ export default {
   data() {
     return {
       form: {
-        file: ""
+        photoLinks: []
       },
       fileStorage: null,
-      errorString: ""
+      errorString: "",
+      loading: false
     };
   },
 
   methods: {
+    getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          let encoded = reader.result;
+          resolve(encoded);
+        };
+        reader.onerror = error => reject(error);
+      });
+    },
+    sendData() {
+      console.log(this.form);
+      this.$axios
+        .$post("/pets", this.form)
+        .then(response => {
+          this.loading = false;
+          this.$nuxt.$loading.finish();
+          this.$router.push({
+            path: "/mainscreen",
+            query: { action: "newPet" }
+          });
+        })
+        .catch(error => {
+          this.errorString = this.errorParser(error);
+          this.loading = false;
+          this.$nuxt.$loading.fail();
+        });
+    },
     onSubmit(event) {
       event.preventDefault();
-      alert(JSON.stringify(this.form));
+      this.loading = true;
+      this.$nuxt.$loading.start();
+      this.errorString = "";
+
+      let promises = [];
+
+      for (let photo of this.fileStorage) {
+        promises.push(this.getBase64(photo));
+      }
+
+      Promise.all(promises)
+        .then(values => {
+          this.form.photoLinks = values;
+          this.sendData();
+        })
+        .catch(() => {
+          this.form.errorString = "La foto es inválida. Por favor elija otra.";
+          this.form.photoLinks = "";
+          this.fileStorage = null;
+          this.loading = false;
+          this.$nuxt.$loading.fail();
+        });
     },
     formatNames(files) {
       if (files.length === 1) {
