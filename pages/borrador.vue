@@ -6,7 +6,7 @@
       petname="Mascotín"
       petimg="https://via.placeholder.com/150"
       date="Hoy"
-      hour="03:05 PM"
+      hour="03:15 PM"
     ></ReportCard>
   </div>
 </template>
